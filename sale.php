@@ -43,6 +43,43 @@
 	  <main class="colonna-risultati" id="risultati">
 		<h2>Benvenuto in Coding Turtles</h2>
 		<p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
+
+		 <!-- Tabella per visualizzare le sale -->
+        <table>
+          <thead>
+            <tr>
+              <th>Codice</th>
+              <th>Nome</th>
+              <th>Tema</th>
+              <th>Metri Quadrati</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            // Includi il file di connessione al database
+            require_once 'database/db.php';
+
+            // Query per selezionare tutte le sale
+            $sql = "SELECT codice, nome, tema, mq FROM Sala";
+            $result = $conn->query($sql);
+
+            // Visualizza i risultati
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    echo "<tr>
+                            <td>{$row['codice']}</td>
+                            <td>{$row['nome']}</td>
+                            <td>{$row['tema']}</td>
+                            <td>{$row['mq']}</td>
+                          </tr>";
+                }
+            } else {
+                echo "<tr><td colspan='4'>Nessuna sala trovata</td></tr>";
+            }
+
+            // Chiudi la connessione
+            $conn->close();
+            ?>
 	  </main>
 	</div>
 

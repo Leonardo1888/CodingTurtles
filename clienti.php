@@ -56,6 +56,54 @@
 	  <main class="colonna-risultati" id="risultati">
 		<h2>Benvenuto in Coding Turtles</h2>
 		<p>Scopri i clienti filtrando a sinistra!</p>
+
+		<!-- Tabella per visualizzare i clienti -->
+<table>
+  <thead>
+    <tr>
+      <th>Codice</th>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Codice Fiscale</th>
+      <th>Data di Nascita</th>
+      <th>Indirizzo</th>
+      <th>Telefono</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    // Includi il file di connessione al database
+    require_once 'database/db.php';
+
+    // Query per selezionare tutti i clienti
+    $sql = "SELECT codice, nome, cognome, cf, dataNas, indirizzo, tel, email FROM Cliente";
+    $result = $conn->query($sql);
+
+    // Visualizza i risultati
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>{$row['codice']}</td>
+                    <td>{$row['nome']}</td>
+                    <td>{$row['cognome']}</td>
+                    <td>{$row['cf']}</td>
+                    <td>{$row['dataNas']}</td>
+                    <td>{$row['indirizzo']}</td>
+                    <td>{$row['tel']}</td>
+                    <td>{$row['email']}</td>
+                  </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='8'>Nessun cliente trovato</td></tr>";
+    }
+
+    // Chiudi la connessione
+    $conn->close();
+    ?>
+  </tbody>
+</table>
+
 	  </main>
 	</div>
 

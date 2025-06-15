@@ -43,6 +43,48 @@
 	  <main class="colonna-risultati" id="risultati">
 		<h2>Benvenuto in Coding Turtles</h2>
 		<p>Scopri gli abbonamenti acquistati filtrando a sinistra!</p>
+
+		<!-- Tabella per visualizzare gli abbonamenti -->
+<table>
+  <thead>
+    <tr>
+      <th>Numero Abbonamento</th>
+      <th>Codice Cliente</th>
+      <th>Data Inizio</th>
+      <th>Data Fine</th>
+      <th>Prezzo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    // Includi il file di connessione al database
+    require_once 'database/db.php';
+
+    // Query per selezionare tutti gli abbonamenti
+    $sql = "SELECT nAbb, cliente, inizio, fine, prezzo FROM Abbonamento";
+    $result = $conn->query($sql);
+
+    // Visualizza i risultati
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>{$row['nAbb']}</td>
+                    <td>{$row['cliente']}</td>
+                    <td>{$row['inizio']}</td>
+                    <td>{$row['fine']}</td>
+                    <td>{$row['prezzo']}</td>
+                  </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='5'>Nessun abbonamento trovato</td></tr>";
+    }
+
+    // Chiudi la connessione
+    $conn->close();
+    ?>
+  </tbody>
+</table>
+
 	  </main>
 	</div>
 
