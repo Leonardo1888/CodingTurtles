@@ -21,9 +21,28 @@
   <div class="main-container">
     <!-- Filtro Ricerca -->
     <div class="contenitore-centrale">
+	  <aside class="colonna-filtro">
+		<h3>Filtra i corsi</h3>
+		<form id="filtro-form">
+		  <label for="nome">Codice:</label>
+		  <input type="text" id="Codice" name="Codice"><br>
+
+		  <label for="nome">Nome:</label>
+		  <input type="text" id="Nome" name="Nome"><br>
+
+		  <label for="nome">Tema:</label>
+		  <input type="text" id="Tema" name="Tema"><br>
+
+		  <label for="nome">Metri quadrati:</label>
+		  <input type="text" id="Metri quadrati" name="Metri quadrati"><br>
+
+		  <button type="submit">Cerca</button>
+		</form>
+	  </aside>
+
 	  <main class="colonna-risultati" id="risultati">
 		<h2>Benvenuto in Coding Turtles</h2>
-		<p></p>
+		<p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
 	  </main>
 	</div>
 
