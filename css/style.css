@@ -191,3 +191,59 @@ body {
     flex: 1 1 100%;
   }
 }
+
+
+/* ----------------- TABELLA DATI ----------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* Rimuove lo spazio tra i bordi delle celle */
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Bordi arrotondati per l'intera tabella */
+  overflow: hidden; /* Nasconde il contenuto che esce dai bordi arrotondati */
+  text-align: left; /* Allinea il testo a sinistra */
+}
+
+/* Stile per l'intestazione della tabella */
+thead {
+  background-color: var(--verde-scuro);
+  color: var(--bianco);
+}
+
+thead th {
+  padding: 15px; /* Aumenta il padding nell'intestazione */
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Stile per le righe del corpo della tabella */
+tbody tr {
+  background-color: var(--bianco);
+  border-bottom: 1px solid var(--grigio-chiaro); /* Sottile separatore tra le righe */
+  transition: background-color 0.3s ease;
+}
+
+/* Colora le righe alternate per una migliore leggibilità */
+tbody tr:nth-child(even) {
+  background-color: var(--grigio-chiaro);
+}
+
+tbody tr:hover {
+  background-color: var(--verde-chiaro); /* Colora la riga al passaggio del mouse */
+  cursor: pointer;
+}
+
+/* Stile per le celle del corpo */
+tbody td {
+  padding: 12px 15px; /* Aumenta il padding nelle celle */
+  vertical-align: middle; /* Allinea verticalmente il contenuto */
+}
+
+/* Stile per la riga "Nessuna sala trovata" */
+tbody tr td[colspan="4"] {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  padding: 20px;
+}

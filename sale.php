@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
   <style src="https://code.jquery.com/jquery-3.6.0.min.js"></style>
   <script src="js/script.js" defer></script>
 </head>
+
 <body>
 
   <!-- Header -->
@@ -21,30 +23,30 @@
   <div class="main-container">
     <!-- Filtro Ricerca -->
     <div class="contenitore-centrale">
-	  <aside class="colonna-filtro">
-		<h3>Filtra i corsi</h3>
-		<form id="filtro-form">
-		  <label for="nome">Codice:</label>
-		  <input type="text" id="Codice" name="Codice"><br>
+      <aside class="colonna-filtro">
+        <h3>Filtra i corsi</h3>
+        <form id="filtro-form">
+          <label for="nome">Codice:</label>
+          <input type="text" id="Codice" name="Codice"><br>
 
-		  <label for="nome">Nome:</label>
-		  <input type="text" id="Nome" name="Nome"><br>
+          <label for="nome">Nome:</label>
+          <input type="text" id="Nome" name="Nome"><br>
 
-		  <label for="nome">Tema:</label>
-		  <input type="text" id="Tema" name="Tema"><br>
+          <label for="nome">Tema:</label>
+          <input type="text" id="Tema" name="Tema"><br>
 
-		  <label for="nome">Metri quadrati:</label>
-		  <input type="text" id="Metri quadrati" name="Metri quadrati"><br>
+          <label for="nome">Metri quadrati:</label>
+          <input type="text" id="Metri quadrati" name="Metri quadrati"><br>
 
-		  <button type="submit">Cerca</button>
-		</form>
-	  </aside>
+          <button type="submit">Cerca</button>
+        </form>
+      </aside>
 
-	  <main class="colonna-risultati" id="risultati">
-		<h2>Benvenuto in Coding Turtles</h2>
-		<p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
+      <main class="colonna-risultati" id="risultati">
+        <h2>Benvenuto in Coding Turtles</h2>
+        <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
 
-		 <!-- Tabella per visualizzare le sale -->
+        <!-- Tabella per visualizzare le sale -->
         <table>
           <thead>
             <tr>
@@ -55,6 +57,7 @@
             </tr>
           </thead>
           <tbody>
+
             <?php
             // Includi il file di connessione al database
             require_once 'database/db.php';
@@ -65,23 +68,25 @@
 
             // Visualizza i risultati
             if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>
+              while ($row = $result->fetch_assoc()) {
+                echo "<tr>
                             <td>{$row['codice']}</td>
                             <td>{$row['nome']}</td>
                             <td>{$row['tema']}</td>
                             <td>{$row['mq']}</td>
                           </tr>";
-                }
+              }
             } else {
-                echo "<tr><td colspan='4'>Nessuna sala trovata</td></tr>";
+              echo "<tr><td colspan='4'>Nessuna sala trovata</td></tr>";
             }
 
             // Chiudi la connessione
             $conn->close();
             ?>
-	  </main>
-	</div>
+          </tbody>
+        </table>
+      </main>
+    </div>
 
   </div>
 
@@ -89,4 +94,5 @@
   <?php include("includes/footer.php"); ?>
 
 </body>
+
 </html>
