@@ -1,97 +1,67 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding Turtles - Palestra</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style src="https://code.jquery.com/jquery-3.6.0.min.js"></style>
   <script src="js/script.js" defer></script>
 </head>
+
 <body>
 
-  <!-- Header -->
   <?php include("includes/header.php"); ?>
-
-  <!-- Navigazione -->
   <?php include("includes/navbar.php"); ?>
 
-  <!-- Contenuto principale -->
   <div class="main-container">
-    <!-- Filtro Ricerca -->
     <div class="contenitore-centrale">
-	  <aside class="colonna-filtro">
-		<h3>Filtra i corsi</h3>
-		<form id="filtro-form">
-		  <label for="nome">Codice:</label>
-		  <input type="text" id="Codice" name="Codice"><br>
+      <aside class="colonna-filtro">
+        <h3>Filtra gli abbonamenti</h3> <form id="filtro-abbonamenti-form"> <label for="nAbb">Numero Abbonamento:</label>
+          <input type="text" id="nAbb" name="nAbb"><br>
+          
+          <label for="cliente">Codice Cliente:</label>
+          <input type="text" id="cliente" name="cliente"><br>
 
-		  <label for="nome">Nome:</label>
-		  <input type="text" id="Nome" name="Nome"><br>
+          <label for="inizio">Data Inizio:</label>
+          <input type="text" id="inizio" name="inizio"><br>
 
-		  <label for="nome">Tema:</label>
-		  <input type="text" id="Tema" name="Tema"><br>
+          <label for="fine">Data Fine:</label>
+          <input type="text" id="fine" name="fine"><br>
 
-		  <label for="nome">Metri quadrati:</label>
-		  <input type="text" id="Metri quadrati" name="Metri quadrati"><br>
+          <label for="prezzo">Prezzo:</label>
+          <input type="text" id="prezzo" name="prezzo"><br>
 
-		  <button type="submit">Cerca</button>
-		</form>
-	  </aside>
+          <button type="submit">Cerca</button>
+        </form>
+      </aside>
 
-	  <main class="colonna-risultati" id="risultati">
-		<h2>Benvenuto in Coding Turtles</h2>
-		<p>Scopri gli abbonamenti acquistati filtrando a sinistra!</p>
+      <main class="colonna-risultati" id="risultati">
+        <h2>Benvenuto in Coding Turtles</h2>
+        <p>Scopri gli abbonamenti acquistati filtrando a sinistra!</p>
 
-		<!-- Tabella per visualizzare gli abbonamenti -->
-<table>
-  <thead>
-    <tr>
-      <th>Numero Abbonamento</th>
-      <th>Codice Cliente</th>
-      <th>Data Inizio</th>
-      <th>Data Fine</th>
-      <th>Prezzo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    // Includi il file di connessione al database
-    require_once 'database/db.php';
-
-    // Query per selezionare tutti gli abbonamenti
-    $sql = "SELECT nAbb, cliente, inizio, fine, prezzo FROM Abbonamento";
-    $result = $conn->query($sql);
-
-    // Visualizza i risultati
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>{$row['nAbb']}</td>
-                    <td>{$row['cliente']}</td>
-                    <td>{$row['inizio']}</td>
-                    <td>{$row['fine']}</td>
-                    <td>{$row['prezzo']}</td>
-                  </tr>";
-        }
-    } else {
-        echo "<tr><td colspan='5'>Nessun abbonamento trovato</td></tr>";
-    }
-
-    // Chiudi la connessione
-    $conn->close();
-    ?>
-  </tbody>
-</table>
-
-	  </main>
-	</div>
-
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Numero Abbonamento</th>
+                <th>Codice Cliente</th>
+                <th>Data Inizio</th>
+                <th>Data Fine</th>
+                <th>Prezzo</th>
+              </tr>
+            </thead>
+            <tbody id="risultati-tabella-abbonamenti">
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
   </div>
 
-  <!-- Footer -->
   <?php include("includes/footer.php"); ?>
 
 </body>
+
 </html>

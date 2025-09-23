@@ -23,11 +23,13 @@ body {
 }
 
 /* ----------------- HEADER ----------------- */
+
 .site-header {
   background-color: var(--verde-scuro);
   color: var(--bianco);
   padding: 20px 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-bottom: 4px solid var(--verde); /* Nuova riga decorativa full-width */
 }
 
 .container-header {
@@ -42,17 +44,25 @@ body {
 .logo {
   width: 60px;
   height: auto;
+  transition: transform 0.3s ease; /* Aggiunge un effetto di transizione */
+}
+
+.logo:hover {
+  transform: scale(1.5); /* Ingrandisce il logo al passaggio del mouse */
 }
 
 .title h1 {
   font-size: 1.8rem;
   margin-bottom: 5px;
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
 }
 
 .title p {
   font-style: italic;
   font-size: 0.95rem;
   color: var(--verde-chiaro);
+  margin: 0;
 }
 
 /* ----------------- NAVBAR ----------------- */
@@ -64,7 +74,7 @@ body {
 
 .nav-list {
   list-style: none;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -129,6 +139,19 @@ body {
 	height: 120%;
     margin-bottom: 10px;
   }
+}
+
+/* ----------------- GESTIONE TABELLA RESPONSIVA ----------------- */
+
+.table-responsive {
+  /* Imposta lo scorrimento orizzontale automatico */
+  overflow-x: auto;
+}
+
+/* Assicurati che la tabella abbia una larghezza minima per attivare lo scroll */
+.table-responsive table {
+  /* Imposta una larghezza minima se le colonne sono fisse */
+  /* min-width: 600px;  - Esempio */
 }
 
 /* ----------------- CONTENITORE CENTRALE ----------------- */

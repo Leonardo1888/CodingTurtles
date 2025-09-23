@@ -26,17 +26,17 @@
       <aside class="colonna-filtro">
         <h3>Filtra i corsi</h3>
         <form id="filtro-form">
-          <label for="nome">Codice:</label>
+          <label for="codice">Codice:</label>
           <input type="text" id="Codice" name="Codice"><br>
 
           <label for="nome">Nome:</label>
           <input type="text" id="Nome" name="Nome"><br>
 
-          <label for="nome">Tema:</label>
+          <label for="tema">Tema:</label>
           <input type="text" id="Tema" name="Tema"><br>
 
-          <label for="nome">Metri quadrati:</label>
-          <input type="text" id="Metri quadrati" name="Metri quadrati"><br>
+          <label for="mq">Metri quadrati:</label>
+          <input type="text" id="Mq" name="Mq"><br>
 
           <button type="submit">Cerca</button>
         </form>
@@ -46,49 +46,28 @@
         <h2>Benvenuto in Coding Turtles</h2>
         <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
 
-        <!-- Tabella per visualizzare le sale -->
-        <table>
-          <thead>
-            <tr>
-              <th>Codice</th>
-              <th>Nome</th>
-              <th>Tema</th>
-              <th>Metri Quadrati</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Codice</th>
+                <th>Nome</th>
+                <th>Tema</th>
+                <th>Metri Quadrati</th>
+              </tr>
+            </thead>
+            <tbody id="risultati-tabella-sale">
+            </tbody>
+          </table>
+        </div>
 
-            <?php
-            // Includi il file di connessione al database
-            require_once 'database/db.php';
-
-            // Query per selezionare tutte le sale
-            $sql = "SELECT codice, nome, tema, mq FROM Sala";
-            $result = $conn->query($sql);
-
-            // Visualizza i risultati
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                echo "<tr>
-                            <td>{$row['codice']}</td>
-                            <td>{$row['nome']}</td>
-                            <td>{$row['tema']}</td>
-                            <td>{$row['mq']}</td>
-                          </tr>";
-              }
-            } else {
-              echo "<tr><td colspan='4'>Nessuna sala trovata</td></tr>";
-            }
-
-            // Chiudi la connessione
-            $conn->close();
-            ?>
-          </tbody>
-        </table>
       </main>
+
     </div>
 
   </div>
+
+
 
   <!-- Footer -->
   <?php include("includes/footer.php"); ?>
