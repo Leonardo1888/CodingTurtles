@@ -6,6 +6,11 @@ sala_codici = [f"S{i:03d}" for i in range(1, 51)]  # 50 sale da S001 a S050
 nomi = ['Mario', 'Luigi', 'Anna', 'Giovanni', 'Sofia', 'Francesco', 'Alessia', 'Luca', 'Martina', 'Andrea']
 cognomi = ['Rossi', 'Verdi', 'Bianchi', 'Neri', 'Gialli', 'Marroni', 'Arancioni', 'Rosa', 'Viola', 'Blu']
 temi = ['Cardio', 'Pesi liberi', 'Macchine', 'Corpo libero', 'Sauna']
+sale_Cardio = ['Tapis roulant', 'Cyclette', 'Ellittica']
+sale_PesiLiberi = ['Manubri', 'Bilancieri', 'Kettlebell']
+sale_Macchine = ['Lat machine', 'Leg press', 'Chest press']
+sale_CorpoLibero = ['Tappetini', 'Bande elastiche', 'Sbarre per trazioni']
+sale_Sauna = ['Sauna finlandese', 'Sauna a infrarossi', 'Bagno turco']
 mq_values = [50, 100, 150, 200, 250]
 
 # Generazione di date casuali (Giugno 2025)
@@ -36,12 +41,31 @@ sql_queries.append("TRUNCATE TABLE FasciaOraria;")
 sql_queries.append("TRUNCATE TABLE Sala;")
 sql_queries.append("SET FOREIGN_KEY_CHECKS = 1;")
 
-# Popolamento della tabella Sala con 50 sale e temi ciclici
+# Mappatura tema -> lista sottocategorie
+sottocategorie_per_tema = {
+    'Cardio': sale_Cardio,
+    'Pesi liberi': sale_PesiLiberi,
+    'Macchine': sale_Macchine,
+    'Corpo libero': sale_CorpoLibero,
+    'Sauna': sale_Sauna
+}
+
+# Dizionario per tenere traccia del conteggio sale per tema
+contatore_tema = {tema: 0 for tema in temi}
+
 for i, codice in enumerate(sala_codici):
     tema = temi[i % len(temi)]
-    nome = f"Sala {tema} #{i+1}"
+    sottocategoria_list = sottocategorie_per_tema[tema]
+    sottocategoria = sottocategoria_list[i % len(sottocategoria_list)]
+
+    # Incrementa il contatore per il tema corrente
+    contatore_tema[tema] += 1
+    numero = contatore_tema[tema]
+
+    nome = f"Sala {sottocategoria} {numero}"
     mq = random.choice(mq_values)
     sql_queries.append(f"INSERT INTO Sala (codice, nome, tema, mq) VALUES ('{codice}', '{nome}', '{tema}', {mq});")
+
 
 # Generazione fasce orarie per ogni sala
 def generate_fasce_orarie(codice):
