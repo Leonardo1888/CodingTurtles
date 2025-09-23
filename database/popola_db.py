@@ -50,19 +50,12 @@ sottocategorie_per_tema = {
     'Sauna': sale_Sauna
 }
 
-# Dizionario per tenere traccia del conteggio sale per tema
-contatore_tema = {tema: 0 for tema in temi}
-
 for i, codice in enumerate(sala_codici):
     tema = temi[i % len(temi)]
     sottocategoria_list = sottocategorie_per_tema[tema]
     sottocategoria = sottocategoria_list[i % len(sottocategoria_list)]
 
-    # Incrementa il contatore per il tema corrente
-    contatore_tema[tema] += 1
-    numero = contatore_tema[tema]
-
-    nome = f"Sala {sottocategoria} {numero}"
+    nome = f"Sala {sottocategoria}"
     mq = random.choice(mq_values)
     sql_queries.append(f"INSERT INTO Sala (codice, nome, tema, mq) VALUES ('{codice}', '{nome}', '{tema}', {mq});")
 
