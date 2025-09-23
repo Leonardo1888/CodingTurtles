@@ -2,21 +2,19 @@ import random
 from datetime import datetime, timedelta, time
 
 # Dati di esempio per le tabelle
-sala_codici = [f"S{i:03d}" for i in range(1, 6)]
+sala_codici = [f"S{i:03d}" for i in range(1, 51)]  # 50 sale da S001 a S050
 nomi = ['Mario', 'Luigi', 'Anna', 'Giovanni', 'Sofia', 'Francesco', 'Alessia', 'Luca', 'Martina', 'Andrea']
 cognomi = ['Rossi', 'Verdi', 'Bianchi', 'Neri', 'Gialli', 'Marroni', 'Arancioni', 'Rosa', 'Viola', 'Blu']
 temi = ['Cardio', 'Pesi liberi', 'Macchine', 'Corpo libero', 'Sauna']
 mq_values = [50, 100, 150, 200, 250]
 
-# Generazione di date casuali (Giugno 25)
+# Generazione di date casuali (Giugno 2025)
 def random_date(start, end):
     return start + timedelta(days=random.randint(0, (end - start).days))
 
-# Per ogni giorno di giugno 2025
+# Periodi per le date
 start_date = datetime(2025, 6, 1)
 end_date = datetime(2025, 6, 30)
-
-# Per la tabella Abbonamento
 start_date_abbonamento = datetime(2024, 1, 1)
 end_date_abbonamento = datetime(2025, 6, 30)
 
@@ -38,12 +36,14 @@ sql_queries.append("TRUNCATE TABLE FasciaOraria;")
 sql_queries.append("TRUNCATE TABLE Sala;")
 sql_queries.append("SET FOREIGN_KEY_CHECKS = 1;")
 
-# Popolamento della tabella Sala con un tema unico per ogni sala
-for codice, tema in zip(sala_codici, temi):
-    nome = f"Sala {tema}"
+# Popolamento della tabella Sala con 50 sale e temi ciclici
+for i, codice in enumerate(sala_codici):
+    tema = temi[i % len(temi)]
+    nome = f"Sala {tema} #{i+1}"
     mq = random.choice(mq_values)
     sql_queries.append(f"INSERT INTO Sala (codice, nome, tema, mq) VALUES ('{codice}', '{nome}', '{tema}', {mq});")
 
+# Generazione fasce orarie per ogni sala
 def generate_fasce_orarie(codice):
     current_date = start_date
     fasce_orarie = []
@@ -59,6 +59,7 @@ def generate_fasce_orarie(codice):
 
 for codice in sala_codici:
     sql_queries.extend(generate_fasce_orarie(codice))
+
 # Popolamento della tabella Posto
 posto_ids = set()
 for codice in sala_codici:
