@@ -15,17 +15,30 @@ if(!empty($_POST['cliente'])) {
     $params[] = '%' . $_POST['cliente'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['inizio'])) {
-    $sql .= " AND inizio LIKE ?";
-    $params[] = '%' . $_POST['inizio'] . '%';
-    $types .= 's';
+
+// Gestione del range di date di inizio
+if (!empty($_POST['inizio_abbonamento_min'])) {
+    $sql .= " AND inizio >= ?";
+    $params[] = $_POST['inizio_abbonamento_min'];
+    $types .= 's'; // 's' per stringa, dato che le date vengono passate come stringhe
 }
-if(!empty($_POST['fine'])) {
-    $sql .= " AND fine LIKE ?";
-    $params[] = '%' . $_POST['fine'] . '%';
+if (!empty($_POST['inizio_abbonamento_max'])) {
+    $sql .= " AND inizio <= ?";
+    $params[] = $_POST['inizio_abbonamento_max'];
     $types .= 's';
 }
 
+// Gestione del range di date di fine
+if (!empty($_POST['fine_abbonamento_min'])) {
+    $sql .= " AND fine >= ?";
+    $params[] = $_POST['fine_abbonamento_min'];
+    $types .= 's';
+}
+if (!empty($_POST['fine_abbonamento_max'])) {
+    $sql .= " AND fine <= ?";
+    $params[] = $_POST['fine_abbonamento_max'];
+    $types .= 's';
+}
 // Gestione del range di prezzo
 if (!empty($_POST['prezzo_min'])) {
     $sql .= " AND prezzo >= ?";

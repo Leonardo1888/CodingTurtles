@@ -19,24 +19,34 @@
         <div class="contenitore-centrale">
             <aside class="colonna-filtro">
                 <h3>Filtra gli abbonamenti</h3>
-                <form id="filtro-abbonamenti-form"> <label for="nAbb">Numero Abbonamento:</label>
+                <form id="filtro-abbonamenti-form">
+                    <label for="nAbb">Numero Abbonamento:</label>
                     <input type="text" id="nAbb" name="nAbb"><br>
 
                     <label for="cliente">Codice Cliente:</label>
                     <input type="text" id="cliente" name="cliente"><br>
 
-                    <label for="inizio">Data Inizio:</label>
-                    <input type="text" id="inizio" name="inizio"><br>
-
-                    <label for="fine">Data Fine:</label>
-                    <input type="text" id="fine" name="fine"><br>
-
-                    <label for="prezzo_min">Prezzo:</label>
+                    <label>Data di inizio:</label>
                     <div class="input-range">
-                        <input type="text" id="prezzo_min" name="prezzo_min" placeholder="min">
+                        <input type="date" id="inizio_abbonamento_min" name="inizio_abbonamento_min">
                         <span>-</span>
-                        <input type="text" id="prezzo_max" name="prezzo_max" placeholder="max">
+                        <input type="date" id="inizio_abbonamento_max" name="inizio_abbonamento_max">
                     </div><br>
+
+                    <label>Data di fine:</label>
+                    <div class="input-range">
+                        <input type="date" id="fine_abbonamento_min" name="fine_abbonamento_min">
+                        <span>-</span>
+                        <input type="date" id="fine_abbonamento_max" name="fine_abbonamento_max">
+                    </div><br>
+
+                    <label>Prezzo:</label>
+                    <div class="input-range">
+                        da <input type="number" id="prezzo_min" name="prezzo_min" placeholder="min">
+                        <span>a</span>
+                        <input type="number" id="prezzo_max" name="prezzo_max" placeholder="max">
+                    </div><br>
+
                     <button type="submit">Cerca</button>
                 </form>
             </aside>
