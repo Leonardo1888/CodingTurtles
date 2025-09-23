@@ -44,8 +44,12 @@
                         ?>
                     </select><br>
 
-                    <label for="Mq">Metri quadrati:</label>
-                    <input type="text" id="Mq" name="Mq"><br>
+                    <label>Metri quadrati:</label>
+                    <div class="input-range">
+                        da <input type="number" id="Mq_min" name="Mq_min" placeholder="min">
+                        <span>a</span>
+                        <input type="number" id="Mq_max" name="Mq_max" placeholder="max">
+                    </div><br>
 
                     <button type="submit">Cerca</button>
                 </form>
@@ -72,7 +76,8 @@
             </main>
         </div>
     </div>
-    
+
     <?php include("includes/footer.php"); ?>
 </body>
+
 </html>
