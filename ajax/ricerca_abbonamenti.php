@@ -25,10 +25,17 @@ if(!empty($_POST['fine'])) {
     $params[] = '%' . $_POST['fine'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['prezzo'])) {
-    $sql .= " AND prezzo LIKE ?";
-    $params[] = '%' . $_POST['prezzo'] . '%';
-    $types .= 's';
+
+// Gestione del range di prezzo
+if (!empty($_POST['prezzo_min'])) {
+    $sql .= " AND prezzo >= ?";
+    $params[] = $_POST['prezzo_min'];
+    $types .= 'd'; // 'd' per double o float
+}
+if (!empty($_POST['prezzo_max'])) {
+    $sql .= " AND prezzo <= ?";
+    $params[] = $_POST['prezzo_max'];
+    $types .= 'd';
 }
 
 $stmt = $conn->prepare($sql);
