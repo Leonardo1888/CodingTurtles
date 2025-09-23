@@ -215,6 +215,15 @@ body {
   }
 }
 
+.input-range {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-range input {
+    width: 80px; /* Regola la larghezza come preferisci */
+}
 
 /* ----------------- TABELLA DATI ----------------- */
 
