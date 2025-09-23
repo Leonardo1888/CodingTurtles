@@ -2,76 +2,77 @@
 <html lang="it">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Turtles - Palestra</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style src="https://code.jquery.com/jquery-3.6.0.min.js"></style>
-  <script src="js/script.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Turtles - Palestra</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js" defer></script>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <?php include("includes/header.php"); ?>
+    <?php include("includes/header.php"); ?>
 
-  <!-- Navigazione -->
-  <?php include("includes/navbar.php"); ?>
+    <?php include("includes/navbar.php"); ?>
 
-  <!-- Contenuto principale -->
-  <div class="main-container">
-    <!-- Filtro Ricerca -->
-    <div class="contenitore-centrale">
-      <aside class="colonna-filtro">
-        <h3>Filtra i corsi</h3>
-        <form id="filtro-form">
-          <label for="codice">Codice:</label>
-          <input type="text" id="Codice" name="Codice"><br>
+    <div class="main-container">
+        <div class="contenitore-centrale">
+            <aside class="colonna-filtro">
+                <h3>Filtra i corsi</h3>
+                <form id="filtro-form">
+                    <label for="Codice">Codice:</label>
+                    <input type="text" id="Codice" name="Codice"><br>
 
-          <label for="nome">Nome:</label>
-          <input type="text" id="Nome" name="Nome"><br>
+                    <label for="Nome">Nome:</label>
+                    <input type="text" id="Nome" name="Nome"><br>
 
-          <label for="tema">Tema:</label>
-          <input type="text" id="Tema" name="Tema"><br>
+                    <label for="Tema">Tema:</label>
+                    <select id="Tema" name="Tema">
+                        <option value="">Tutti</option>
+                        <?php
+                        require_once 'database/db.php';
+                        $sql = "SELECT DISTINCT tema FROM Sala";
+                        $result = $conn->query($sql);
 
-          <label for="mq">Metri quadrati:</label>
-          <input type="text" id="Mq" name="Mq"><br>
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . htmlspecialchars($row['tema']) . "'>" . htmlspecialchars($row['tema']) . "</option>";
+                            }
+                        }
+                        $conn->close();
+                        ?>
+                    </select><br>
 
-          <button type="submit">Cerca</button>
-        </form>
-      </aside>
+                    <label for="Mq">Metri quadrati:</label>
+                    <input type="text" id="Mq" name="Mq"><br>
 
-      <main class="colonna-risultati" id="risultati">
-        <h2>Benvenuto in Coding Turtles</h2>
-        <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
+                    <button type="submit">Cerca</button>
+                </form>
+            </aside>
 
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>Codice</th>
-                <th>Nome</th>
-                <th>Tema</th>
-                <th>Metri Quadrati</th>
-              </tr>
-            </thead>
-            <tbody id="risultati-tabella-sale">
-            </tbody>
-          </table>
+            <main class="colonna-risultati" id="risultati">
+                <h2>Benvenuto in Coding Turtles</h2>
+                <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Codice</th>
+                                <th>Nome</th>
+                                <th>Tema</th>
+                                <th>Metri Quadrati</th>
+                            </tr>
+                        </thead>
+                        <tbody id="risultati-tabella-sale">
+                        </tbody>
+                    </table>
+                </div>
+            </main>
         </div>
-
-      </main>
-
     </div>
-
-  </div>
-
-
-
-  <!-- Footer -->
-  <?php include("includes/footer.php"); ?>
-
+    
+    <?php include("includes/footer.php"); ?>
 </body>
-
 </html>
