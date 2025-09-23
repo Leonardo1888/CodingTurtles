@@ -25,12 +25,17 @@ if(!empty($_POST['Cf'])) {
     $params[] = '%' . $_POST['Cf'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['DataNas'])) {
-    $sql .= " AND dataNas LIKE ?";
-    $params[] = '%' . $_POST['DataNas'] . '%';
+// Gestione del range per la data di nascita
+if (!empty($_POST['DataNas_min'])) {
+    $sql .= " AND dataNas >= ?";
+    $params[] = $_POST['DataNas_min'];
     $types .= 's';
 }
-if(!empty($_POST['Indirizzo'])) {
+if (!empty($_POST['DataNas_max'])) {
+    $sql .= " AND dataNas <= ?";
+    $params[] = $_POST['DataNas_max'];
+    $types .= 's';
+}if(!empty($_POST['Indirizzo'])) {
     $sql .= " AND indirizzo LIKE ?";
     $params[] = '%' . $_POST['Indirizzo'] . '%';
     $types .= 's';

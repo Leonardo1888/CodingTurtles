@@ -29,8 +29,16 @@
                     <input type="text" id="Cognome" name="Cognome"><br>
 
                     <label for="cf">Codice fiscale:</label>
-                    <input type="text" id="Cf" name="Cf"><br> <label for="dataNas">Data di nascita:</label>
-                    <input type="text" id="DataNas" name="DataNas"><br> <label for="indirizzo">Indirizzo:</label>
+                    <input type="text" id="Cf" name="Cf"><br>
+
+                    <label>Data di nascita:</label>
+                    <div class="input-range">
+                        <input type="date" id="DataNas_min" name="DataNas_min" placeholder="da">
+                        <span>-</span>
+                        <input type="date" id="DataNas_max" name="DataNas_max" placeholder="a">
+                    </div><br>
+
+                    <label for="indirizzo">Indirizzo:</label>
                     <input type="text" id="Indirizzo" name="Indirizzo"><br>
 
                     <label for="tel">Telefono:</label>

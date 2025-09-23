@@ -222,9 +222,8 @@ body {
 }
 
 .input-range input {
-    width: 80px; /* Regola la larghezza come preferisci */
+    width: 120px; /* Aumenta la larghezza per visualizzare tutta la data */
 }
-
 /* ----------------- TABELLA DATI ----------------- */
 
 table {
