@@ -52,7 +52,7 @@
             </aside>
 
             <main class="colonna-risultati" id="risultati">
-                <h2>Benvenuto in Coding Turtles</h2>
+                <h2>ABBONAMENTI</h2>
                 <p>Scopri gli abbonamenti acquistati filtrando a sinistra!</p>
 
                 <div class="table-responsive">

@@ -52,7 +52,7 @@
             </aside>
 
             <main class="colonna-risultati" id="risultati">
-                <h2>Benvenuto in Coding Turtles</h2>
+                <h2>CLIENTI</h2>
                 <p>Scopri i clienti filtrando a sinistra!</p>
 
                 <div class="table-responsive">

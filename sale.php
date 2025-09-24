@@ -56,7 +56,7 @@
             </aside>
 
             <main class="colonna-risultati" id="risultati">
-                <h2>Benvenuto in Coding Turtles</h2>
+                <h2>SALE</h2>
                 <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
 
                 <div class="table-responsive">
