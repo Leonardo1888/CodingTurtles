@@ -70,8 +70,8 @@ if($stmt) {
                 <td>{$row['cf']}</td>
                 <td>{$row['dataNas']}</td>
                 <td>{$row['indirizzo']}</td>
-                <td>{$row['tel']}</td>
-                <td>{$row['email']}</td>
+                <td><a href=\"tel:+{$row['tel']}\">{$row['tel']}</a></td>
+                <td><a href=\"mailto:{$row['email']}\">{$row['email']}</a></td>
               </tr>";
         }
     } else {
