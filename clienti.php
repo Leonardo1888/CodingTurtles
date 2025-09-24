@@ -15,12 +15,21 @@
     <?php include("includes/header.php"); ?>
     <?php include("includes/navbar.php"); ?>
 
+    <?php // Verifica che quando clienti.php viene aperta non ci sia un valore per la GET.
+    $cliente_filtro = '';
+    if (isset($_GET['codice'])) {
+        $codiceCliente_filtro = htmlspecialchars($_GET['codice']);
+    }
+    ?>
+
     <div class="main-container">
         <div class="contenitore-centrale">
             <aside class="colonna-filtro">
                 <h3>Filtra i clienti</h3>
-                <form id="filtro-clienti-form"> <label for="codice">Codice:</label>
-                    <input type="text" id="Codice" name="Codice"><br>
+                <form id="filtro-clienti-form"> 
+                    
+                    <label for="codice">Codice:</label>
+                    <input type="text" id="Codice" name="Codice" value="<?php echo $codiceCliente_filtro ?>"><br>
 
                     <label for="nome">Nome:</label>
                     <input type="text" id="Nome" name="Nome"><br>
@@ -67,6 +76,7 @@
                                 <th>Indirizzo</th>
                                 <th>Telefono</th>
                                 <th>Email</th>
+                                <th>nAbb</th>
                             </tr>
                         </thead>
                         <tbody id="risultati-tabella-clienti">

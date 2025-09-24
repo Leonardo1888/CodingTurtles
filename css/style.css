@@ -29,7 +29,7 @@ body {
   color: var(--bianco);
   padding: 20px 0;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-bottom: 4px solid var(--verde); /* Nuova riga decorativa full-width */
+  border-bottom: 4px solid var(--verde); 
 }
 
 .container-header {
@@ -44,7 +44,7 @@ body {
 .logo {
   width: 60px;
   height: auto;
-  transition: transform 0.3s ease; /* Aggiunge un effetto di transizione */
+  transition: transform 0.3s ease; /* effetto di transizione */
 }
 
 .logo:hover {
@@ -74,7 +74,6 @@ body {
 
 .nav-list {
   list-style: none;
-  /* max-width: 1200px; */
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -144,14 +143,13 @@ body {
 /* ----------------- GESTIONE TABELLA RESPONSIVA ----------------- */
 
 .table-responsive {
-  /* Imposta lo scorrimento orizzontale automatico */
   overflow-x: auto;
 }
 
 /* Assicurati che la tabella abbia una larghezza minima per attivare lo scroll */
 .table-responsive table {
-  /* Imposta una larghezza minima se le colonne sono fisse */
-  /* min-width: 600px;  - Esempio */
+  /* Impostare una larghezza minima se le colonne sono fisse */
+  /* min-width: 600px;  - per esempio.. */
 }
 
 /* ----------------- CONTENITORE CENTRALE ----------------- */
@@ -222,56 +220,51 @@ body {
 }
 
 .input-range input {
-    width: 120px; /* Aumenta la larghezza per visualizzare tutta la data */
+    width: 120px; 
 }
 /* ----------------- TABELLA DATI ----------------- */
 
 table {
   width: 100%;
-  border-collapse: collapse; /* Rimuove lo spazio tra i bordi delle celle */
+  border-collapse: collapse; 
   margin-top: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px; /* Bordi arrotondati per l'intera tabella */
-  overflow: hidden; /* Nasconde il contenuto che esce dai bordi arrotondati */
-  text-align: left; /* Allinea il testo a sinistra */
+  border-radius: 10px; 
+  overflow: hidden; 
+  text-align: left; 
 }
 
-/* Stile per l'intestazione della tabella */
 thead {
   background-color: var(--verde-scuro);
   color: var(--bianco);
 }
 
 thead th {
-  padding: 15px; /* Aumenta il padding nell'intestazione */
+  padding: 12px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-/* Stile per le righe del corpo della tabella */
 tbody tr {
   background-color: var(--bianco);
-  border-bottom: 1px solid var(--grigio-chiaro); /* Sottile separatore tra le righe */
+  border-bottom: 1px solid var(--grigio-chiaro); 
   transition: background-color 0.3s ease;
 }
 
-/* Colora le righe alternate per una migliore leggibilità */
 tbody tr:nth-child(even) {
   background-color: var(--grigio-chiaro);
 }
 
 tbody tr:hover {
-  background-color: var(--verde-chiaro); /* Colora la riga al passaggio del mouse */
+  background-color: var(--verde-chiaro);
   cursor: pointer;
 }
 
-/* Stile per le celle del corpo */
 tbody td {
-  padding: 12px 15px; /* Aumenta il padding nelle celle */
-  vertical-align: middle; /* Allinea verticalmente il contenuto */
+  padding: 10px 9px; 
+  vertical-align: middle; 
 }
 
-/* Stile per la riga "Nessuna sala trovata" */
 tbody tr td[colspan="4"] {
   text-align: center;
   font-style: italic;

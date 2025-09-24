@@ -15,6 +15,13 @@
     <?php include("includes/header.php"); ?>
     <?php include("includes/navbar.php"); ?>
 
+    <?php // Verifica che quando abbonamenti.php viene aperta non ci sia un valore per la GET.
+    $cliente_filtro = '';
+    if (isset($_GET['cliente'])) {
+        $cliente_filtro = htmlspecialchars($_GET['cliente']);
+    }
+    ?>
+
     <div class="main-container">
         <div class="contenitore-centrale">
             <aside class="colonna-filtro">
@@ -24,7 +31,7 @@
                     <input type="text" id="nAbb" name="nAbb"><br>
 
                     <label for="cliente">Codice Cliente:</label>
-                    <input type="text" id="cliente" name="cliente"><br>
+                    <input type="text" id="cliente" name="cliente" value="<?php echo $cliente_filtro; ?>"><br>
 
                     <label>Data di inizio:</label>
                     <div class="input-range">

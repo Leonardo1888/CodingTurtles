@@ -65,7 +65,7 @@ if($stmt) {
         while($row = $result->fetch_assoc()) {
             $output .= "<tr>
                 <td>{$row['nAbb']}</td>
-                <td>{$row['cliente']}</td>
+                <td><a href=\"clienti.php?codice={$row['cliente']}\">{$row['cliente']}</a></td>
                 <td>{$row['inizio']}</td>
                 <td>{$row['fine']}</td>
                 <td>{$row['prezzo']}</td>

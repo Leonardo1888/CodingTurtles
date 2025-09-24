@@ -1,55 +1,65 @@
 <?php
 require_once '../database/db.php';
 
-$sql = "SELECT codice, nome, cognome, cf, dataNas, indirizzo, tel, email FROM Cliente WHERE 1=1";
+// Query iniziale con LEFT JOIN, senza GROUP BY
+$sql = "SELECT C.codice, C.nome, C.cognome, C.cf, C.dataNas, C.indirizzo, C.tel, C.email, COUNT(A.nAbb) AS nAbbonamenti
+FROM Cliente AS C 
+LEFT JOIN Abbonamento AS A ON C.codice = A.cliente
+WHERE 1 = 1";
+
 $params = [];
 $types = '';
 
-if(!empty($_POST['Codice'])) {
-    $sql .= " AND codice LIKE ?";
+// Aggiunta dei filtri WHERE con la specificazione della tabella (C.)
+if (!empty($_POST['Codice'])) {
+    $sql .= " AND C.codice LIKE ?";
     $params[] = '%' . $_POST['Codice'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['Nome'])) {
-    $sql .= " AND nome LIKE ?";
+if (!empty($_POST['Nome'])) {
+    $sql .= " AND C.nome LIKE ?";
     $params[] = '%' . $_POST['Nome'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['Cognome'])) {
-    $sql .= " AND cognome LIKE ?";
+if (!empty($_POST['Cognome'])) {
+    $sql .= " AND C.cognome LIKE ?";
     $params[] = '%' . $_POST['Cognome'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['Cf'])) {
-    $sql .= " AND cf LIKE ?";
+if (!empty($_POST['Cf'])) {
+    $sql .= " AND C.cf LIKE ?";
     $params[] = '%' . $_POST['Cf'] . '%';
     $types .= 's';
 }
 // Gestione del range per la data di nascita
 if (!empty($_POST['DataNas_min'])) {
-    $sql .= " AND dataNas >= ?";
+    $sql .= " AND C.dataNas >= ?";
     $params[] = $_POST['DataNas_min'];
     $types .= 's';
 }
 if (!empty($_POST['DataNas_max'])) {
-    $sql .= " AND dataNas <= ?";
+    $sql .= " AND C.dataNas <= ?";
     $params[] = $_POST['DataNas_max'];
     $types .= 's';
-}if(!empty($_POST['Indirizzo'])) {
-    $sql .= " AND indirizzo LIKE ?";
+}
+if (!empty($_POST['Indirizzo'])) {
+    $sql .= " AND C.indirizzo LIKE ?";
     $params[] = '%' . $_POST['Indirizzo'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['Tel'])) {
-    $sql .= " AND tel LIKE ?";
+if (!empty($_POST['Tel'])) {
+    $sql .= " AND C.tel LIKE ?";
     $params[] = '%' . $_POST['Tel'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['Email'])) {
-    $sql .= " AND email LIKE ?";
+if (!empty($_POST['Email'])) {
+    $sql .= " AND C.email LIKE ?";
     $params[] = '%' . $_POST['Email'] . '%';
     $types .= 's';
 }
+
+// Aggiungi la clausola GROUP BY solo alla fine
+$sql .= " GROUP BY C.codice";
 
 $stmt = $conn->prepare($sql);
 $output = '';
@@ -72,14 +82,15 @@ if($stmt) {
                 <td>{$row['indirizzo']}</td>
                 <td><a href=\"tel:+{$row['tel']}\">{$row['tel']}</a></td>
                 <td><a href=\"mailto:{$row['email']}\">{$row['email']}</a></td>
-              </tr>";
+                <td><a href=\"abbonamenti.php?cliente={$row['codice']}\">{$row['nAbbonamenti']}</a></td>
+            </tr>";
         }
     } else {
-        $output = "<tr><td colspan='8'>Nessun cliente trovato con i filtri specificati.</td></tr>";
+        $output = "<tr><td colspan='9'>Nessun cliente trovato con i filtri specificati.</td></tr>";
     }
     $stmt->close();
 } else {
-    $output = "<tr><td colspan='8'>Errore SQL: " . $conn->error . "</td></tr>";
+    $output = "<tr><td colspan='9'>Errore SQL: " . $conn->error . "</td></tr>";
 }
 
 $conn->close();
