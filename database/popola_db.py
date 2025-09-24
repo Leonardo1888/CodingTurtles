@@ -12,6 +12,7 @@ sale_Macchine = ['Lat machine', 'Leg press', 'Chest press']
 sale_CorpoLibero = ['Tappetini', 'Bande elastiche', 'Sbarre per trazioni']
 sale_Sauna = ['Sauna finlandese', 'Sauna a infrarossi', 'Bagno turco']
 mq_values = [50, 100, 150, 200, 250]
+possible_prices = [50, 100, 150, 200]
 
 # Generazione di date casuali (Giugno 2025)
 def random_date(start, end):
@@ -99,7 +100,8 @@ for i in range(1, 501):
     data_nas = random_date(datetime(1970, 1, 1), datetime(2000, 12, 31)).strftime('%Y-%m-%d')
     indirizzo = f"{random.randint(1, 100)} Via {random.choice(['Roma', 'Milano', 'Napoli', 'Torino', 'Palermo'])}"
     tel = ''.join(random.choices('0123456789', k=10))
-    email = f"{nome.lower()}.{cognome.lower()}@example.com"
+    random_digits = ''.join(random.choices('0123456789', k=4))
+    email = f"{nome.lower()}.{cognome.lower()}{random_digits}@example.com"
     if codice not in clienti_codici:
         clienti_codici.add(codice)
         sql_queries.append(f"INSERT INTO Cliente (codice, nome, cognome, cf, dataNas, indirizzo, tel, email) VALUES ('{codice}', '{nome}', '{cognome}', '{cf}', '{data_nas}', '{indirizzo}', '{tel}', '{email}');")
@@ -110,7 +112,7 @@ for i in range(1, 501):
     codice_cliente = f"C{random.randint(1, 500):03d}"
     inizio = random_date(start_date_abbonamento, end_date_abbonamento).strftime('%Y-%m-%d')
     fine = (random_date(datetime.strptime(inizio, '%Y-%m-%d'), end_date_abbonamento) + timedelta(days=365)).strftime('%Y-%m-%d')
-    prezzo = random.randint(100, 500)
+    prezzo = random.choice(possible_prices)
     n_abb = f"A{i:03d}"
     if n_abb not in abb_ids:
         abb_ids.add(n_abb)
