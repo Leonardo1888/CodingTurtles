@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding Turtles - Palestra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/script.js" defer></script>
@@ -28,7 +29,7 @@
                 <h3>Filtra i clienti</h3>
                 <form id="filtro-clienti-form"> 
                     
-                    <label for="codice">Codice:</label>
+                    <label for="codice">Codice Cliente:</label>
                     <input type="text" id="Codice" name="Codice" value="<?php echo $codiceCliente_filtro ?>"><br>
 
                     <label for="nome">Nome:</label>
@@ -68,15 +69,15 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Codice</th>
+                                <th>Codice Cliente</th>
                                 <th>Nome</th>
                                 <th>Cognome</th>
                                 <th>Codice Fiscale</th>
                                 <th>Data di Nascita</th>
                                 <th>Indirizzo</th>
-                                <th>Telefono</th>
-                                <th>Email</th>
-                                <th>nAbb</th>
+                                <th>Tel <i class="fa-solid fa-phone-volume"></i></th>
+                                <th>Email <i class="fa-solid fa-envelope"></i></th>
+                                <th>n.Abb</th>
                             </tr>
                         </thead>
                         <tbody id="risultati-tabella-clienti">

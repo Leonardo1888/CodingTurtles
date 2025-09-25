@@ -5,5 +5,6 @@
             <h1>Coding Turtles</h1>
             <p>Allenamento per corpo e mente</p>
         </div>
+        <img src="images/ballerinaObliquo.png" alt="Ballerina" class="ballerina-image">
     </div>
 </header>

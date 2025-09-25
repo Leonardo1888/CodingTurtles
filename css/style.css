@@ -16,11 +16,13 @@
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   }
+
   50% {
     /* sollevamento di x pixel e leggera luminosità */
-    transform: translateY(-8px); 
-    box-shadow: 0 0 10px var(--verde-chiaro), 0 2px 5px rgba(0, 0, 0, 0.1); 
+    transform: translateY(-8px);
+    box-shadow: 0 0 10px var(--verde-chiaro), 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
   100% {
     /* stato finale: torna alla posizione originale */
     transform: translateY(0);
@@ -31,14 +33,18 @@
 /* ----------------- ANIMAZIONE - Table Glow ----------------- */
 @keyframes table-glow {
   0% {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra standard */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Ombra standard */
   }
+
   50% {
     /* Illuminiamo il bordo con un'ombra del verde principale */
-    box-shadow: 0 0 15px var(--verde), 0 4px 10px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 0 15px var(--verde), 0 4px 10px rgba(0, 0, 0, 0.2);
   }
+
   100% {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Torna all'ombra standard */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Torna all'ombra standard */
   }
 }
 
@@ -62,8 +68,8 @@ body {
   background-color: var(--verde-scuro);
   color: var(--bianco);
   padding: 20px 0;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-bottom: 4px solid var(--verde); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid var(--verde);
 }
 
 .container-header {
@@ -78,18 +84,20 @@ body {
 .logo {
   width: 60px;
   height: auto;
-  transition: transform 0.3s ease; /* effetto di transizione */
+  transition: transform 0.3s ease;
+  /* effetto di transizione */
 }
 
 .logo:hover {
-  transform: scale(1.5); /* Ingrandisce il logo al passaggio del mouse */
+  transform: scale(1.5);
+  /* Ingrandisce il logo al passaggio del mouse */
 }
 
 .title h1 {
   font-size: 1.8rem;
   margin-bottom: 5px;
-  text-transform: uppercase; 
-  letter-spacing: 1px; 
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .title p {
@@ -99,11 +107,35 @@ body {
   margin: 0;
 }
 
+/* ----------------- HEADER - IMMAGINE BALLERINA ----------------- */
+
+.ballerina-image {
+  margin-left: auto;
+  height: 100px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.ballerina-image:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .ballerina-image {
+    display: none;
+  }
+
+  .logo {
+    width: 80px;
+    height: auto;
+  }
+}
+
 /* ----------------- NAVBAR ----------------- */
 .navbar {
   background-color: var(--verde);
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-list {
@@ -149,10 +181,53 @@ body {
 .site-footer {
   background-color: var(--verde-scuro);
   color: var(--bianco);
-  text-align: center;
-  padding: 15px;
-  margin-top: 40px;
+  padding: 8px;
   font-size: 0.95rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 0;
+  text-align: initial;
+}
+
+.footer-content-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.footer-text {
+  flex-grow: 1;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.ballerina-image-footer {
+  height: 50px;
+  width: auto;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.ballerina-image-footer:hover {
+  transform: scale(1.05);
+}
+
+.ballerina-placeholder {
+  height: 1px;
+  width: 50px;
+}
+
+@media (max-width: 768px) {
+  .ballerina-image-footer {
+    display: none;
+  }
+  .ballerina-placeholder {
+    display: none;
+  }
 }
 
 /* ----------------- RESPONSIVE ----------------- */
@@ -168,8 +243,8 @@ body {
   }
 
   .logo {
-	width: 120%; 
-	height: 120%;
+    width: 120%;
+    height: 120%;
     margin-bottom: 10px;
   }
 }
@@ -203,13 +278,19 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  animation: filtro-spotlight 1s ease-in-out 0.1s 1; 
-  transform-origin: center center; 
+  animation: filtro-spotlight 1s ease-in-out 0.1s 1;
+  transform-origin: center center;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  align-self: flex-start;
+
 }
 
 
 .colonna-filtro input,
-.colonna-filtro select, /* <-- AGGIUNTO QUESTO */
+.colonna-filtro select,
+/* <-- AGGIUNTO QUESTO */
 .colonna-filtro button {
   width: 100%;
   padding: 8px;
@@ -218,8 +299,10 @@ body {
   border-radius: 5px;
   border: 1px solid #ccc;
   /* Aggiungiamo uno stile per il selettore per farlo somigliare meglio agli input */
-  appearance: none; /* Rimuove lo stile predefinito del browser (freccetta) */
-  background-color: var(--bianco); /* Sfondo bianco per chiarezza */
+  appearance: none;
+  /* Rimuove lo stile predefinito del browser (freccetta) */
+  background-color: var(--bianco);
+  /* Sfondo bianco per chiarezza */
   /* padding-right: 30px; Lo spazio è già gestito dal padding: 8px */
 }
 
@@ -243,11 +326,12 @@ body {
 }
 
 .colonna-risultati {
-  flex: 0 0 75%; /* 9 su 12 */
+  flex: 0 0 75%;
+  /* 9 su 12 */
   background-color: var(--bianco);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 /* Responsive */
@@ -263,13 +347,13 @@ body {
 }
 
 .input-range {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .input-range input {
-    width: 120px; 
+  width: 120px;
 }
 
 
@@ -279,13 +363,13 @@ body {
 
 table {
   width: 100%;
-  border-collapse: collapse; 
+  border-collapse: collapse;
   margin-top: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px; 
-  overflow: hidden; 
-  text-align: left; 
-  animation: table-glow 1s ease-in-out 1.0s 1; 
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: left;
+  animation: table-glow 1s ease-in-out 1.0s 1;
 }
 
 thead {
@@ -301,7 +385,7 @@ thead th {
 
 tbody tr {
   background-color: var(--bianco);
-  border-bottom: 1px solid var(--grigio-chiaro); 
+  border-bottom: 1px solid var(--grigio-chiaro);
   transition: background-color 0.3s ease;
 }
 
@@ -315,8 +399,8 @@ tbody tr:hover {
 }
 
 tbody td {
-  padding: 10px 9px; 
-  vertical-align: middle; 
+  padding: 10px 9px;
+  vertical-align: middle;
 }
 
 tbody tr td[colspan="4"] {

@@ -27,7 +27,7 @@
             <aside class="colonna-filtro">
                 <h3>Filtra gli abbonamenti</h3>
                 <form id="filtro-abbonamenti-form">
-                    <label for="nAbb">Numero Abbonamento:</label>
+                    <label for="nAbb">Codice Abbonamento:</label>
                     <input type="text" id="nAbb" name="nAbb"><br>
 
                     <label for="cliente">Codice Cliente:</label>
@@ -66,7 +66,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Numero Abbonamento</th>
+                                <th>Codice</th>
                                 <th>Codice Cliente</th>
                                 <th>Data Inizio</th>
                                 <th>Data Fine</th>
