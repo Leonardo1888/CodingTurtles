@@ -8,6 +8,40 @@
   --nero: #1e1e1e;
 }
 
+/* ----------------- ANIMAZIONE - Spotlight per la colonna filtro ----------------- */
+
+@keyframes filtro-spotlight {
+  0% {
+    /* stato iniziale: fermo */
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  50% {
+    /* sollevamento di x pixel e leggera luminosità */
+    transform: translateY(-8px); 
+    box-shadow: 0 0 10px var(--verde-chiaro), 0 2px 5px rgba(0, 0, 0, 0.1); 
+  }
+  100% {
+    /* stato finale: torna alla posizione originale */
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* ----------------- ANIMAZIONE - Table Glow ----------------- */
+@keyframes table-glow {
+  0% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra standard */
+  }
+  50% {
+    /* Illuminiamo il bordo con un'ombra del verde principale */
+    box-shadow: 0 0 15px var(--verde), 0 4px 10px rgba(0, 0, 0, 0.2); 
+  }
+  100% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Torna all'ombra standard */
+  }
+}
+
 /* ----------------- RESET ----------------- */
 * {
   margin: 0;
@@ -164,14 +198,18 @@ body {
 }
 
 .colonna-filtro {
-  flex: 0 0 25%; /* 3 su 12 */
+  flex: 0 0 25%;
   background-color: var(--verde-chiaro);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  animation: filtro-spotlight 1s ease-in-out 0.1s 1; 
+  transform-origin: center center; 
 }
 
+
 .colonna-filtro input,
+.colonna-filtro select, /* <-- AGGIUNTO QUESTO */
 .colonna-filtro button {
   width: 100%;
   padding: 8px;
@@ -179,7 +217,18 @@ body {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  /* Aggiungiamo uno stile per il selettore per farlo somigliare meglio agli input */
+  appearance: none; /* Rimuove lo stile predefinito del browser (freccetta) */
+  background-color: var(--bianco); /* Sfondo bianco per chiarezza */
+  /* padding-right: 30px; Lo spazio è già gestito dal padding: 8px */
 }
+
+/* ----------------- Stile Freccetta Personalizzata (Opzionale) ----------------- */
+/* Nota: per una freccetta personalizzata pulita, dovresti avvolgere
+   il <select> in un div e usare i pseudo-elementi CSS, ma per semplicità
+   non lo facciamo qui, concentrandoci solo sul look del box. */
+
+
 
 .colonna-filtro button {
   background-color: var(--verde);
@@ -222,6 +271,10 @@ body {
 .input-range input {
     width: 120px; 
 }
+
+
+
+
 /* ----------------- TABELLA DATI ----------------- */
 
 table {
@@ -232,6 +285,7 @@ table {
   border-radius: 10px; 
   overflow: hidden; 
   text-align: left; 
+  animation: table-glow 1s ease-in-out 1.0s 1; 
 }
 
 thead {
