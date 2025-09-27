@@ -416,7 +416,6 @@ tbody tr td[colspan="4"] {
 
 .btn-modifica,
 .btn-elimina {
-  /* Stili di base per entrambi i pulsanti */
   padding: 6px 10px;
   border-radius: 5px;
   font-weight: 500;
@@ -424,35 +423,29 @@ tbody tr td[colspan="4"] {
   border: 1px solid transparent;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
-  /* Nel caso fossero link */
   display: inline-block;
   font-size: 0.9rem;
 }
 
 .btn-modifica {
-  /* Verde per l'azione positiva (Modifica) */
   background-color: var(--verde);
   color: var(--bianco);
   border-color: var(--verde);
 }
 
 .btn-modifica:hover {
-  /* Scurisci al passaggio del mouse */
   background-color: var(--verde-scuro);
   border-color: var(--verde-scuro);
   transform: translateY(-1px);
 }
 
 .btn-elimina {
-  /* Rosso per l'azione distruttiva (Elimina) */
   background-color: #d9534f;
-  /* Un rosso standard */
   color: var(--bianco);
   border-color: #d9534f;
 }
 
 .btn-elimina:hover {
-  /* Scurisci il rosso al passaggio del mouse */
   background-color: #c9302c;
   border-color: #c9302c;
   transform: translateY(-1px);
@@ -474,15 +467,15 @@ tbody tr td[colspan="4"] {
 
 #salaModal #closeModalBtn {
   /* Colore Annulla: Neutro, simile a un pulsante secondario */
-  background-color: #ccc;
-  color: var(--nero);
-  border: 1px solid #aaa;
+  background-color: #d9534f;
+  color: var(--bianco);
+  border: 1px solid #d9534f;
   font-weight: normal;
   transition: background-color 0.3s;
 }
 
 #salaModal #closeModalBtn:hover {
-  background-color: #bbb;
+  background-color: #c9302c;
 }
 
 /* Stile per il pulsante "Aggiungi Sala" sopra la tabella */
@@ -500,7 +493,7 @@ tbody tr td[colspan="4"] {
 }
 
 
-/* SALE.PHP: MODALE*/
+/* SALE.PHP: MODALE */
 
 .modal-sfondo {
   position: fixed;
@@ -517,7 +510,7 @@ tbody tr td[colspan="4"] {
 
 .modal-contenuto {
   background: #fff;
-  padding: 2.2em 2em;
+  padding: 1.2em 2em;
   border-radius: 12px;
   box-shadow: 0 8px 36px #2223;
   min-width: 250px;
@@ -526,7 +519,6 @@ tbody tr td[colspan="4"] {
 
 .modal-contenuto label {
   display: block;
-  margin: 9px 0;
 }
 
 .modal-contenuto input,

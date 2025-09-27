@@ -60,13 +60,6 @@ $(document).ready(function() {
     loadSale();
 });
 
-
-/*
-Le seguenti funzioni sono definite FUORI da $(document).ready()
-perché vengono richiamate direttamente dall'HTML (con l'attributo onclick)
-e devono essere globalmente disponibili.
-*/
-
 // Funzione per edit: apre modale con dati precaricati
 function editSala(codice) {
     $.ajax({
@@ -125,9 +118,6 @@ function deleteSala(codice, nome) {
 
 // Funzione di escape HTML per sicurezza
 function escapeHtml(text) {
-    // In questo contesto, 'text' è una variabile jQuery che deve essere definita
-    // per non rompere il codice. Assumiamo che la sua definizione sia corretta
-    // e la manteniamo qui per renderla disponibile alle funzioni CRUD globali.
     return $('<div>').text(text).html();
 }
 
@@ -145,14 +135,11 @@ displaySale = function(sale) {
                 <td>${escapeHtml(s.tema)}</td>
                 <td>${s.mq}</td>
                 <td>
-                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');" style="margin-right:6px;"><i class="fa fa-edit"></i> Modifica</button>
+                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
                     <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>
                 </td>
             </tr>`;
         });
     }
     $('#risultati-tabella-sale').html(html);
-    // Assumiamo che updateStats sia definito in crud_functions.js
-    // Se updateStats non esiste, commenta o rimuovi la riga qui sotto:
-    // updateStats(sale); 
 };
