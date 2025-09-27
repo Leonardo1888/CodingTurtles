@@ -537,3 +537,28 @@ tbody tr td[colspan="4"] {
 .modal-contenuto h3 {
   margin-bottom: 12px;
 }
+
+/* Mantieni i pulsanti azioni su una sola riga e tronca i nomi lunghi */
+/* Colonna 2 = Nome */
+tbody td:nth-child(2) {
+  max-width: 260px;           /* regola se vuoi più spazio per il nome */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ultima colonna = Azioni */
+tbody td:last-child {
+  white-space: nowrap;         /* evita il ritorno a capo dei pulsanti */
+}
+
+/* Allinea meglio contenuto dei pulsanti e aggiungi spaziatura tra loro */
+tbody td:last-child button {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Aggiungi margine al secondo pulsante in poi */
+tbody td:last-child button + button {
+  margin-left: 6px;
+}
