@@ -127,7 +127,7 @@
 
     <?php include("includes/footer.php"); ?>
 
-    <script src="crud_functions.js"></script>
+    <script src="js/crud_functions.js"></script>
     <script src="js/sale_logic.js"></script>
 
 

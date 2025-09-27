@@ -38,7 +38,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: 'ajax_crud.php',
+            url: 'ajax/ajax_crud.php',
             data: postData,
             dataType: 'json',
             success: function(res) {
@@ -64,7 +64,7 @@ $(document).ready(function() {
 function editSala(codice) {
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: {
             action: 'get_single',
             codice: codice
@@ -96,7 +96,7 @@ function deleteSala(codice, nome) {
     }
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: {
             action: 'delete',
             codice: codice

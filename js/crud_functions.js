@@ -40,7 +40,7 @@ function loadSale() {
     
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: formData,
         dataType: 'json',
         beforeSend: function() {
@@ -111,7 +111,7 @@ function addSala() {
     
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: formData,
         dataType: 'json',
         beforeSend: function() {
@@ -140,7 +140,7 @@ function addSala() {
 function editSala(codice) {
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: { action: 'get_single', codice: codice },
         dataType: 'json',
         success: function(response) {
@@ -180,7 +180,7 @@ function updateSala() {
     
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: formData,
         dataType: 'json',
         beforeSend: function() {
@@ -213,7 +213,7 @@ function deleteSala(codice, nome) {
     
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: { action: 'delete', codice: codice },
         dataType: 'json',
         success: function(response) {
@@ -234,7 +234,7 @@ function deleteSala(codice, nome) {
 function generateCodiceSala() {
     $.ajax({
         type: 'POST',
-        url: 'ajax_crud.php',
+        url: 'ajax/ajax_crud.php',
         data: { action: 'read' },
         dataType: 'json',
         success: function(response) {

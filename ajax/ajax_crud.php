@@ -143,16 +143,25 @@ switch ($action) {  //operazioni CRUD
 
         // Aggiorna sala
         $stmt = $conn->prepare("UPDATE Sala SET nome = ?, tema = ?, mq = ? WHERE codice = ?");
-        $stmt->bind_param('siss', $nome, $tema, $mq, $codice);
+        $stmt->bind_param('ssis', $nome, $tema, $mq, $codice);
 
         if ($stmt->execute()) {
+            // Chiudi lo statement di update e rileggi i dati persistiti dal DB
+            $stmt->close();
+            $stmt = $conn->prepare("SELECT codice, nome, tema, mq FROM Sala WHERE codice = ?");
+            $stmt->bind_param('s', $codice);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $saved = $result->fetch_assoc();
+            $stmt->close();
+
             $response['success'] = true;
             $response['message'] = "Sala '$codice' aggiornata con successo";
-            $response['data'] = ['codice' => $codice, 'nome' => $nome, 'tema' => $tema, 'mq' => $mq];
+            $response['data'] = $saved ?: ['codice' => $codice, 'nome' => $nome, 'tema' => $tema, 'mq' => $mq];
         } else {
             $response['message'] = "Errore durante l'aggiornamento della sala";
+            $stmt->close();
         }
-        $stmt->close();
         break;
 
     case 'delete':
