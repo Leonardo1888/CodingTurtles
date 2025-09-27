@@ -27,6 +27,27 @@ function validate_sala_data($codice, $nome, $tema, $mq) {   //gestione dell'inpu
     return $errors;
 }
 
+function generate_next_codice($conn) {
+    // Trova il più piccolo codice disponibile nel formato SNNN riempiendo i buchi
+    $sql = "SELECT CAST(SUBSTRING(codice, 2) AS UNSIGNED) AS n FROM Sala ORDER BY n";
+    $result = $conn->query($sql);
+    $expected = 1;
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $n = (int)$row['n'];
+            if ($n > $expected) {
+                // Trovato buco: expected è il primo codice libero
+                break;
+            }
+            if ($n === $expected) {
+                $expected++;
+            }
+        }
+        $result->free();
+    }
+    return 'S' . str_pad($expected, 3, '0', STR_PAD_LEFT);
+}
+
 $response = ['success' => false, 'message' => '', 'data' => null];
 $action = $_POST['action'] ?? '';
 
@@ -36,6 +57,11 @@ switch ($action) {  //operazioni CRUD
         $nome = sanitize_input($_POST['nome'] ?? '');
         $tema = sanitize_input($_POST['tema'] ?? '');
         $mq = (int)($_POST['mq'] ?? 0);
+
+        // Se non viene fornito un codice, generane uno automaticamente
+        if (empty($codice)) {
+            $codice = generate_next_codice($conn);
+        }
 
         $validation_errors = validate_sala_data($codice, $nome, $tema, $mq);
         if (!empty($validation_errors)) {

@@ -91,8 +91,8 @@
                 <h3 id="modalTitle">Aggiungi Sala</h3>
                 <input type="hidden" id="form-action" value="add" />
                 <label>
-                    Codice Sala:
-                    <input type="text" id="form-codice" name="codice" required pattern="^S\d{3}$" />
+                    Codice Sala (facoltativo):
+                    <input type="text" id="form-codice" name="codice" pattern="^S\d{3}$" />
                 </label>
                 <br />
                 <label>
