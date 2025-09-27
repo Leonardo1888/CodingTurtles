@@ -225,6 +225,7 @@ body {
   .ballerina-image-footer {
     display: none;
   }
+
   .ballerina-placeholder {
     display: none;
   }
@@ -408,4 +409,139 @@ tbody tr td[colspan="4"] {
   font-style: italic;
   color: #777;
   padding: 20px;
+}
+
+
+/* ----------------- PULSANTI AZIONI TABELLA ----------------- */
+
+.btn-modifica,
+.btn-elimina {
+  /* Stili di base per entrambi i pulsanti */
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  /* Nel caso fossero link */
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.btn-modifica {
+  /* Verde per l'azione positiva (Modifica) */
+  background-color: var(--verde);
+  color: var(--bianco);
+  border-color: var(--verde);
+}
+
+.btn-modifica:hover {
+  /* Scurisci al passaggio del mouse */
+  background-color: var(--verde-scuro);
+  border-color: var(--verde-scuro);
+  transform: translateY(-1px);
+}
+
+.btn-elimina {
+  /* Rosso per l'azione distruttiva (Elimina) */
+  background-color: #d9534f;
+  /* Un rosso standard */
+  color: var(--bianco);
+  border-color: #d9534f;
+}
+
+.btn-elimina:hover {
+  /* Scurisci il rosso al passaggio del mouse */
+  background-color: #c9302c;
+  border-color: #c9302c;
+  transform: translateY(-1px);
+}
+
+/* Stile per i pulsanti all'interno della modale */
+#salaModal button[type="submit"] {
+  /* Colore Salva: Verde primario */
+  background-color: var(--verde);
+  color: var(--bianco);
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+#salaModal button[type="submit"]:hover {
+  background-color: var(--verde-scuro);
+}
+
+#salaModal #closeModalBtn {
+  /* Colore Annulla: Neutro, simile a un pulsante secondario */
+  background-color: #ccc;
+  color: var(--nero);
+  border: 1px solid #aaa;
+  font-weight: normal;
+  transition: background-color 0.3s;
+}
+
+#salaModal #closeModalBtn:hover {
+  background-color: #bbb;
+}
+
+/* Stile per il pulsante "Aggiungi Sala" sopra la tabella */
+#openAddSala {
+  background-color: var(--verde-scuro);
+  color: var(--bianco);
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+#openAddSala:hover {
+  background-color: var(--verde);
+}
+
+
+/* SALE.PHP: MODALE*/
+
+.modal-sfondo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-contenuto {
+  background: #fff;
+  padding: 2.2em 2em;
+  border-radius: 12px;
+  box-shadow: 0 8px 36px #2223;
+  min-width: 250px;
+  max-width: 95vw;
+}
+
+.modal-contenuto label {
+  display: block;
+  margin: 9px 0;
+}
+
+.modal-contenuto input,
+.modal-contenuto select {
+  padding: 5px;
+  margin-top: 4px;
+  width: 92%;
+}
+
+.modal-contenuto button {
+  padding: 6px 16px;
+  margin-right: 12px;
+  margin-top: 10px;
+}
+
+.modal-contenuto h3 {
+  margin-bottom: 12px;
 }

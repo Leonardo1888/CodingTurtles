@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Coding Turtles - Palestra</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -124,196 +125,12 @@
         </div>
     </div>
 
-    <style>
-        .modal-sfondo {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.35);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-
-        .modal-contenuto {
-            background: #fff;
-            padding: 2.2em 2em;
-            border-radius: 12px;
-            box-shadow: 0 8px 36px #2223;
-            min-width: 250px;
-            max-width: 95vw;
-        }
-
-        .modal-contenuto label {
-            display: block;
-            margin: 9px 0;
-        }
-
-        .modal-contenuto input,
-        .modal-contenuto select {
-            padding: 5px;
-            margin-top: 4px;
-            width: 92%;
-        }
-
-        .modal-contenuto button {
-            padding: 6px 16px;
-            margin-right: 12px;
-            margin-top: 10px;
-        }
-
-        .modal-contenuto h3 {
-            margin-bottom: 12px;
-        }
-    </style>
-
     <?php include("includes/footer.php"); ?>
 
     <script src="crud_functions.js"></script>
-    <script>
-        // Apertura modale aggiunta
-        $('#openAddSala').click(function () {
-            $('#modalTitle').text('Aggiungi Sala');
-            $('#form-action').val('create');
-            $('#form-codice').prop('readonly', false);
-            $('#salaForm')[0].reset();
-            $('#salaModal').show();
-        });
+    <script src="js/sale_logic.js"></script>
 
-        // Chiudi modale
-        $('#closeModalBtn').click(function () {
-            $('#salaModal').hide();
-        });
 
-        // Chiudi modale con ESC
-        $(document).keyup(function (e) {
-            if (e.key === "Escape") {
-                $('#salaModal').hide();
-            }
-        });
-
-        // Submit form aggiungi/modifica
-        $('#salaForm').submit(function (e) {
-            e.preventDefault();
-
-            var action = $('#form-action').val();
-            var postData = {
-                action: action,
-                codice: $('#form-codice').val().trim(),
-                nome: $('#form-nome').val().trim(),
-                tema: $('#form-tema').val(),
-                mq: $('#form-mq').val()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'ajax_crud.php',
-                data: postData,
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        alert(res.message);
-                        $('#salaModal').hide();
-                        loadSale(); // funzione che carica la tabella con AJAX dal file crud_functions.js
-                    } else {
-                        alert('Errore: ' + res.message);
-                    }
-                },
-                error: function () {
-                    alert('Errore di comunicazione con il server');
-                }
-            });
-        });
-
-        // Funzione per edit: apre modale con dati precaricati
-        function editSala(codice) {
-            $.ajax({
-                type: 'POST',
-                url: 'ajax_crud.php',
-                data: { action: 'get_single', codice: codice },
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        $('#modalTitle').text('Modifica Sala');
-                        $('#form-action').val('update');
-                        $('#form-codice').val(res.data.codice).prop('readonly', true);
-                        $('#form-nome').val(res.data.nome);
-                        $('#form-tema').val(res.data.tema);
-                        $('#form-mq').val(res.data.mq);
-                        $('#salaModal').show();
-                    } else {
-                        alert('Errore: ' + res.message);
-                    }
-                },
-                error: function () {
-                    alert('Errore di comunicazione con il server');
-                }
-            });
-        }
-
-        // Funzione per elimina sala
-        function deleteSala(codice, nome) {
-            if (!confirm(`Eliminare la sala "${nome}" (${codice})?`)) {
-                return;
-            }
-            $.ajax({
-                type: 'POST',
-                url: 'ajax_crud.php',
-                data: { action: 'delete', codice: codice },
-                dataType: 'json',
-                success: function (res) {
-                    if (res.success) {
-                        alert(res.message);
-                        loadSale();
-                    } else {
-                        alert('Errore: ' + res.message);
-                    }
-                },
-                error: function () {
-                    alert('Errore di comunicazione con il server');
-                }
-            });
-        }
-
-        // Sovrascrivo displaySale per includere le azioni edit/delete nella tabella
-        const originalDisplaySale = displaySale;
-        displaySale = function (sale) {
-            let html = '';
-            if (sale.length === 0) {
-                html = '<tr><td colspan="5" style="text-align:center;">Nessuna sala trovata.</td></tr>';
-            } else {
-                sale.forEach(function (s) {
-                    html += `<tr>
-                        <td>${escapeHtml(s.codice)}</td>
-                        <td>${escapeHtml(s.nome)}</td>
-                        <td>${escapeHtml(s.tema)}</td>
-                        <td>${s.mq}</td>
-                        <td>
-                            <button onclick="editSala('${escapeHtml(s.codice)}');" style="margin-right:6px;">Modifica</button>
-                            <button onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');" style="background:#d9534f; color:#fff;">Elimina</button>
-                        </td>
-                    </tr>`;
-                });
-            }
-            $('#risultati-tabella-sale').html(html);
-            updateStats(sale);
-        };
-
-        // Funzione di escape HTML per sicurezza
-        function escapeHtml(text) {
-            return $('<div>').text(text).html();
-        }
-
-        // Chiamata iniziale per caricare le sale
-        $(document).ready(function () {
-            loadSale();
-        });
-
-        // La funzione loadSale è definita in crud_functions.js e gestisce il caricamento AJAX
-    </script>
 </body>
 
 </html>
