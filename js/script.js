@@ -50,4 +50,14 @@ $(document).ready(function() {
       eseguiRicerca('#filtro-abbonamenti-form', '#risultati-tabella-abbonamenti', 'ajax/ricerca_abbonamenti.php');
   }
 
+  // Gestione della ricerca per le fasce orarie
+  if ($('#filtro-fasce_orarie-form').length) {
+      $('#filtro-fasce_orarie-form').on('submit', function(e) {
+          e.preventDefault();
+          eseguiRicerca('#filtro-fasce_orarie-form', '#risultati-tabella-fasce_orarie', 'ajax/ricerca_fasce-orarie.php');
+      });
+      // Esegue la ricerca iniziale
+      eseguiRicerca('#filtro-fasce_orarie-form', '#risultati-tabella-fasce_orarie', 'ajax/ricerca_fasce-orarie.php');
+  }
+
 });

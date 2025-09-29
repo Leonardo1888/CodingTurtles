@@ -1,7 +1,15 @@
 <?php
 require_once '../database/db.php';
 
-$sql = "SELECT codice, nome, tema, mq FROM Sala WHERE 1=1";
+
+// Query iniziale con LEFT JOIN, senza GROUP BY
+$sql = "SELECT C.codice, C.nome, C.tema, C.mq, COUNT(A.sala) AS nFasceOrarie
+FROM Sala AS C 
+LEFT JOIN FasciaOraria AS A ON C.codice = A.sala
+WHERE 1 = 1";
+
+//$sql = "SELECT codice, nome, tema, mq FROM Sala WHERE 1=1";
+
 $params = [];
 $types = '';
 
@@ -31,6 +39,11 @@ if (!empty($_POST['Mq_max'])) {
     $params[] = $_POST['Mq_max'];
     $types .= 'd';
 }
+
+// Aggiungi la clausola GROUP BY solo alla fine
+$sql .= " GROUP BY C.codice, C.nome, C.tema, C.mq";
+
+
 $stmt = $conn->prepare($sql);
 $output = '';
 
@@ -48,6 +61,7 @@ if ($stmt) {
                 <td>{$row['nome']}</td>
                 <td>{$row['tema']}</td>
                 <td>{$row['mq']}</td>
+                <td><a href=\"fasce_orarie.php?sala={$row['codice']}\">{$row['nFasceOrarie']}</a></td>
               </tr>";
         }
     } else {

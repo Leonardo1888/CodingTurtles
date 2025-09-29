@@ -44,18 +44,19 @@ function loadSale() {
         data: formData,
         dataType: 'json',
         beforeSend: function() {
-            $('#risultati-tabella-sale').html('<tr><td colspan="5"><i class="fa fa-spinner fa-spin"></i> Caricamento...</td></tr>');
+            $('#risultati-tabella-sale').html('<tr><td colspan="6"><i class="fa fa-spinner fa-spin"></i> Caricamento...</td></tr>');
         },
         success: function(response) {
             if (response.success) {
                 displaySale(response.data);
                 showMessage('success', response.message);
             } else {
-                $('#risultati-tabella-sale').html('<tr><td colspan="5">Nessuna sala trovata</td></tr>');
+                $('#risultati-tabella-sale').html('<tr><td colspan="6">Nessuna sala trovata</td></tr>');
                 showMessage('error', response.message);
             }
         },
         error: function() {
+            console.log("errore in crud funct nel load");
             $('#risultati-tabella-sale').html('<tr><td colspan="5">Errore nel caricamento dei dati</td></tr>');
             showMessage('error', 'Errore di connessione al server');
         }
@@ -65,9 +66,8 @@ function loadSale() {
 // Funzione per visualizzare le sale nella tabella
 function displaySale(sale) {
     let html = '';
-    
     if (sale.length === 0) {
-        html = '<tr><td colspan="5">Nessuna sala trovata</td></tr>';
+        html = '<tr><td colspan="6">Nessuna sala trovata</td></tr>';
     } else {
         sale.forEach(function(sala) {
             html += `
@@ -78,6 +78,7 @@ function displaySale(sale) {
                         <span class="badge ${getTemaClass(sala.tema)}">${escapeHtml(sala.tema)}</span>
                     </td>
                     <td>${sala.mq} m²</td>
+                    <td><a href="fasce_orarie.php?sala=${sala.codice}">${sala.nFasceOrarie}</a></td>
                     <td>
                         <button class="btn btn-sm btn-primary me-1" onclick="editSala('${sala.codice}')" title="Modifica">
                             <i class="fa fa-edit"></i>
@@ -158,6 +159,7 @@ function editSala(codice) {
             }
         },
         error: function() {
+            console.log("errore nel crud funct in edit sala");
             showMessage('error', 'Errore nel caricamento dei dati della sala');
         }
     });

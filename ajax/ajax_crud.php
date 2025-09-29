@@ -126,11 +126,16 @@ switch ($action) {  //operazioni CRUD
             $types .= 'i';
         }
 
-        $sql = "SELECT codice, nome, tema, mq FROM Sala";
+        //$sql = "SELECT codice, nome, tema, mq FROM Sala";
+
+        $sql = "SELECT C.codice, C.nome, C.tema, C.mq, COUNT(A.sala) AS nFasceOrarie
+                FROM Sala AS C
+                LEFT JOIN FasciaOraria AS A ON C.codice = A.sala";
+
         if (count($where) > 0) {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
-        $sql .= " ORDER BY codice";
+        $sql .= " GROUP BY C.codice, C.nome, C.tema, C.mq ORDER BY C.codice";
 
         $stmt = $conn->prepare($sql);
         if ($types) {

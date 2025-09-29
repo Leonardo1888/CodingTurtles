@@ -134,6 +134,7 @@ displaySale = function(sale) {
                 <td>${escapeHtml(s.nome)}</td>
                 <td>${escapeHtml(s.tema)}</td>
                 <td>${s.mq}</td>
+                <td><a href="fasce_orarie.php?sala=${s.codice}">${s.nFasceOrarie}</a></td>
                 <td>
                     <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
                     <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>

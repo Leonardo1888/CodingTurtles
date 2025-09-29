@@ -62,21 +62,26 @@ for i, codice in enumerate(sala_codici):
 
 
 # Generazione fasce orarie per ogni sala
-def generate_fasce_orarie(codice):
+def generate_fasce_orarie(codice, start_date, max_giorni=7):
     current_date = start_date
     fasce_orarie = []
-    while current_date <= end_date:
-        start_hour = 8  # Inizia alle 8:00 ogni giorno
-        while start_hour < 20:  # Fino alle 20:00
-            durata = random.randint(1, 3)  # Durata casuale tra 1 e 3 ore
+
+    for _ in range(max_giorni):  # Limita a 7 giorni
+        start_hour = 8  # Inizio giornata alle 8
+        while start_hour < 20:
+            durata = random.randint(1, 3)  # Durata random da 1 a 3 ore
             ora = time(start_hour, 0).strftime('%H:%M:%S')
-            fasce_orarie.append(f"INSERT INTO FasciaOraria (sala, data, ora, durata) VALUES ('{codice}', '{current_date.strftime('%Y-%m-%d')}', '{ora}', {durata});")
-            start_hour += durata  # Incrementa l'ora di inizio in base alla durata
+            
+            fasce_orarie.append(
+                f"INSERT INTO FasciaOraria (sala, data, ora, durata) VALUES ('{codice}', '{current_date.strftime('%Y-%m-%d')}', '{ora}', {durata});"
+            )
+            start_hour += durata  # Incrementa ora inizio per la prossima fascia
         current_date += timedelta(days=1)  # Passa al giorno successivo
     return fasce_orarie
 
 for codice in sala_codici:
-    sql_queries.extend(generate_fasce_orarie(codice))
+    sql_queries.extend(generate_fasce_orarie(codice, start_date))
+
 
 # Popolamento della tabella Posto
 posto_ids = set()

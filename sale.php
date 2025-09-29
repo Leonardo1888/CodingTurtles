@@ -16,6 +16,13 @@
     <?php include("includes/header.php"); ?>
     <?php include("includes/navbar.php"); ?>
 
+    <?php // Verifica che quando sale.php viene aperta non ci sia un valore per la GET.
+    $sale_filtro = '';
+    if (isset($_GET['Codice'])) {
+        $sale_filtro = htmlspecialchars($_GET['Codice']);
+    }
+    ?>
+
     <div class="main-container">
         <div class="contenitore-centrale">
 
@@ -23,7 +30,7 @@
                 <h3>Filtra le sale</h3>
                 <form id="filtro-form">
                     <label for="Codice">Codice Sala:</label>
-                    <input type="text" id="Codice" name="Codice" /><br />
+                    <input type="text" id="Codice" name="Codice" value="<?php echo $sale_filtro ?>" /><br />
 
                     <label for="Nome">Nome:</label>
                     <input type="text" id="Nome" name="Nome" /><br />
@@ -72,6 +79,7 @@
                                 <th>Nome</th>
                                 <th>Tema</th>
                                 <th>Metri Quadrati</th>
+                                <th>n.Fasce Orarie</th>
                                 <th>Azioni</th>
                             </tr>
                         </thead>
