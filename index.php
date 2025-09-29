@@ -7,31 +7,63 @@
   <title>Coding Turtles - Palestra</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <style src="https://code.jquery.com/jquery-3.6.0.min.js"></style>
   <script src="js/script.js" defer></script>
 </head>
 
 <body>
 
-  <!-- Header -->
   <?php include("includes/header.php"); ?>
 
-  <!-- Navigazione -->
   <?php include("includes/navbar.php"); ?>
 
-  <!-- Contenuto principale -->
   <div class="main-container">
-    <!-- Filtro Ricerca -->
-    <div class="contenitore-centrale">
-      <main class="colonna-risultati" id="risultati">
-        <h2>Benvenuto in Coding Turtles</h2>
-        <p></p>
-      </main>
-    </div>
+    <main class="colonna-risultati" id="risultati">
 
+      <section class="hero-section">
+        <h1>Benvenuto in Coding Turtles Fitness 🐢💪</h1>
+        <p style="font-size: large;"><i>Inizia oggi il tuo percorso verso il benessere con un team pronto a supportarti in ogni passo.</i></p>
+        <div class="hero-image-container">
+            <img src="images/guy_running.jpg" alt="Ragazzo che corre sul tapis roulant" class="hero-image">
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="feature-section text-left">
+        <div class="content-text">
+          <h2>Attrezzature all'Avanguardia</h2>
+          <p>La nostra palestra è dotata di un'ampia selezione di <strong>macchinari di ultima generazione</strong> e zone dedicate al sollevamento pesi e al cardio.</p>
+          <p>Che tu sia un principiante o un atleta esperto, troverai tutto il necessario per raggiungere i tuoi obiettivi. L'allenamento non è mai stato così vario e stimolante!</p>
+        </div>
+        <div class="content-image">
+          <img src="images/gym.jpg" alt="Interno di una palestra con pesi e attrezzature" class="feature-image">
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="feature-section text-right">
+        <div class="content-text">
+          <h2>Non Sarai Mai Solo</h2>
+          <p>Affidati ai nostri <strong>Personal Trainer certificati</strong>. Creeranno un piano di allenamento su misura per te, monitorando i tuoi progressi e fornendoti la giusta motivazione.</p>
+          <p>Che tu voglia perdere peso, aumentare la massa muscolare o semplicemente migliorare la tua salute, sarai guidato da professionisti.</p>
+        </div>
+        <div class="content-image">
+          <img src="images/personal_trainer.jpg" alt="Personal trainer che aiuta un cliente" class="feature-image">
+        </div>
+      </section>
+
+      <hr>
+
+      <section class="call-to-action">
+          <h2>Sei Pronto a Trasformarti?</h2>
+          <p>Visita la nostra sede o contattaci per una prova gratuita!</p>
+          <a href="#" class="button-cta">Inizia Ora!</a>
+      </section>
+
+    </main>
   </div>
 
-  <!-- Footer -->
   <?php include("includes/footer.php"); ?>
 
 </body>
