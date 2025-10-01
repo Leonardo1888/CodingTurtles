@@ -20,7 +20,7 @@ def random_date(start, end):
 
 # Periodi per le date
 start_date = datetime(2025, 6, 1)
-end_date = datetime(2025, 6, 30)
+end_date = datetime(2025, 6, 7)
 start_date_abbonamento = datetime(2024, 1, 1)
 end_date_abbonamento = datetime(2025, 6, 30)
 
@@ -123,29 +123,45 @@ for i in range(1, 501):
         abb_ids.add(n_abb)
         sql_queries.append(f"INSERT INTO Abbonamento (nAbb, cliente, inizio, fine, prezzo) VALUES ('{n_abb}', '{codice_cliente}', '{inizio}', '{fine}', {prezzo});")
 
-# Popolamento della tabella Prenotazione
-prenotazione_nProg = set()
-for codice in sala_codici:
-    for _ in range(20):
-        n_prog = random.randint(1, 1000)
-        if n_prog not in prenotazione_nProg:
-            prenotazione_nProg.add(n_prog)
-            data = random_date(start_date, end_date).strftime('%Y-%m-%d')
-            ora = random_time()
-            codice_cliente = f"C{random.randint(1, 500):03d}"
-            sql_queries.append(f"INSERT INTO Prenotazione (nProg, cliente, sala, data, ora, posto) VALUES ({n_prog}, '{codice_cliente}', '{codice}', '{data}', '{ora}', {random.randint(1, 100)});")
+# Popolamento della tabella Prenotazione    
+def generate_prenotazioni(codice, start_date, max_giorni=7):
+    current_date = start_date
+    prenotazioni = []
+    nProg = 0
+    for codice in sala_codici:
+        for _ in range(max_giorni):  # Limita a 7 giorni
+            start_hour = 8  # Inizio giornata alle 8
+            while start_hour < 20:
+                nProg += 1
+                codice_cliente = random.choice(clienti_codici)
+                ora = time(start_hour, 0).strftime('%H:%M:%S')
+                prenotazioni.append(
+                    f"INSERT INTO Prenotazione (nProg, cliente, sala, data, ora) VALUES ('{codice_cliente}','{codice}', '{current_date.strftime('%Y-%m-%d')}', '{ora}', '{nProg}');"
+                )
+                start_hour += 1  # Incrementa ora inizio per la prossima fascia
+            current_date += timedelta(days=1)  # Passa al giorno successivo
+    return prenotazioni
 
+   
 # Popolamento della tabella SubAbbonamento
-sub_abb_ids = set()
-prenotazioni = list(prenotazione_nProg)
-abbonamenti = list(abb_ids)
+def popola_sub_abbonamento(abb_ids, n):
+    abbonamenti = list(abb_ids)  # converti set in lista per indice
+    sub_abbonamenti = []
+    for i in range(1, n + 1):  # id progressivo per prenotazione da 1 a n
+        codice_abb = abbonamenti[(i-1) % len(abbonamenti)]  # assegna ciclicamente i codici dall'array
+        sub_abbonamenti.append({
+            'prenotazione': i,
+            'abbonamento': codice_abb
+        })
+    return sub_abbonamenti
 
-for n_prog in prenotazioni:
-    n_abb = random.choice(abbonamenti)
-    id_sub_abb = f"{n_prog}-{n_abb}"
-    if id_sub_abb not in sub_abb_ids:
-        sub_abb_ids.add(id_sub_abb)
-        sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({n_prog}, '{n_abb}');")
+
+#for n_prog in prenotazioni:
+ #   n_abb = random.choice(abbonamenti)
+  #  id_sub_abb = f"{n_prog}-{n_abb}"
+   # if id_sub_abb not in sub_abb_ids:
+    #    sub_abb_ids.add(id_sub_abb)
+     #   sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({n_prog}, '{n_abb}');")
 
 # Scrittura delle query SQL in un file di testo
 with open('popola_db.txt', 'w') as f:
