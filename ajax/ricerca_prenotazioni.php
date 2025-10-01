@@ -45,7 +45,7 @@ if($stmt) {
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $output .= "<tr>
-                <td><a href=\"clienti.php?Codice={$row['cliente']}\">{$row['cliente']}</a></td>
+                <td><a href=\"clienti.php?codice={$row['cliente']}\">{$row['cliente']}</a></td>
                 <td><a href=\"sale.php?Codice={$row['sala']}\">{$row['sala']}</a></td>
                 <td>{$row['data']}</td>
                 <td>{$row['ora']}</td>
