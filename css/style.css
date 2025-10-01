@@ -60,6 +60,7 @@ body {
   background-color: var(--grigio-chiaro);
   color: var(--nero);
   line-height: 1.6;
+  overflow-x: hidden; 
 }
 
 /* ----------------- HEADER ----------------- */
@@ -250,18 +251,6 @@ body {
   }
 }
 
-/* ----------------- GESTIONE TABELLA RESPONSIVA ----------------- */
-
-.table-responsive {
-  overflow-x: auto;
-}
-
-/* Assicurati che la tabella abbia una larghezza minima per attivare lo scroll */
-.table-responsive table {
-  /* Impostare una larghezza minima se le colonne sono fisse */
-  /* min-width: 600px;  - per esempio.. */
-}
-
 /* ----------------- CONTENITORE CENTRALE ----------------- */
 
 .contenitore-centrale {
@@ -274,7 +263,7 @@ body {
 }
 
 .colonna-filtro {
-  flex: 0 0 25%;
+  flex: 0 0 10%;
   background-color: var(--verde-chiaro);
   padding: 20px;
   border-radius: 10px;
@@ -283,15 +272,13 @@ body {
   transform-origin: center center;
   position: sticky;
   top: 20px;
+  margin-left: -10%;
   height: fit-content;
   align-self: flex-start;
-
 }
-
 
 .colonna-filtro input,
 .colonna-filtro select,
-/* <-- AGGIUNTO QUESTO */
 .colonna-filtro button {
   width: 100%;
   padding: 8px;
@@ -299,20 +286,9 @@ body {
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  /* Aggiungiamo uno stile per il selettore per farlo somigliare meglio agli input */
   appearance: none;
-  /* Rimuove lo stile predefinito del browser (freccetta) */
   background-color: var(--bianco);
-  /* Sfondo bianco per chiarezza */
-  /* padding-right: 30px; Lo spazio è già gestito dal padding: 8px */
 }
-
-/* ----------------- Stile Freccetta Personalizzata (Opzionale) ----------------- */
-/* Nota: per una freccetta personalizzata pulita, dovresti avvolgere
-   il <select> in un div e usare i pseudo-elementi CSS, ma per semplicità
-   non lo facciamo qui, concentrandoci solo sul look del box. */
-
-
 
 .colonna-filtro button {
   background-color: var(--verde);
@@ -327,12 +303,18 @@ body {
 }
 
 .colonna-risultati {
-  flex: 0 0 75%;
+  flex: 0 0 90%;
   /* 9 su 12 */
   background-color: var(--bianco);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  bottom:0;
+  overflow-y:scroll;
+  overflow-x:scroll;
+  max-height: 750px; 
+  max-width: fit-content;
 }
 
 /* Responsive */
@@ -357,29 +339,48 @@ body {
   width: 120px;
 }
 
-
 /* ----------------- TABELLA DATI ----------------- */
 
 table {
-  width: 100%;
+  /* Struttura base e animazione */
   border-collapse: collapse;
-  margin-top: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  overflow: hidden;
   text-align: left;
-  animation: table-glow 1s ease-in-out 1.0s 1;
+  animation: table-glow 0.5s ease-in-out 0.5s 1;
+  margin-top: 5%; 
 }
 
 thead {
   background-color: var(--verde-scuro);
   color: var(--bianco);
+  position: sticky; 
+  z-index: 2;
+  top: -20px;
 }
 
 thead th {
   padding: 12px;
   font-weight: 600;
   text-transform: uppercase;
+}
+
+thead th:first-child {
+  position: sticky;
+  left: -20px;
+  background-color: var(--verde-scuro); 
+  z-index: 3; /* Deve essere maggiore di thead (z-index: 2) per stare sopra */
+}
+
+tbody td:first-child {
+  position: sticky;
+  left: -20px;
+  background-color: var(--bianco); 
+  z-index: 1; /* sotto l'intestazione (z-index: 3) */
+}
+
+tbody tr:nth-child(even) td:first-child {
+  background-color: var(--grigio-chiaro);
 }
 
 tbody tr {
@@ -408,7 +409,6 @@ tbody tr td[colspan="4"] {
   color: #777;
   padding: 20px;
 }
-
 
 /* ----------------- PULSANTI AZIONI TABELLA ----------------- */
 
@@ -605,6 +605,8 @@ tbody td:last-child button+button {
   height: 1px;
   background: linear-gradient(90deg, transparent, #d1fae5, transparent);
   margin: 28px auto;
+  min-width: 0; /* Permette la corretta contrazione nel flex container */
+  overflow-x: hidden; 
 }
 
 /* Sezioni a due colonne */

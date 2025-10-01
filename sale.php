@@ -71,7 +71,6 @@
                 </div>
                 <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
 
-                <div class="table-responsive">
                     <table cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse;">
                         <thead>
                             <tr>
@@ -88,7 +87,6 @@
                             <!-- Dati caricati via AJAX -->
                         </tbody>
                     </table>
-                </div>
             </main>
         </div>
     </div>
