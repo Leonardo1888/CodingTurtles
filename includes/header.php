@@ -1,6 +1,8 @@
 <header class="site-header">
-    <div class="container-header">
+    <div class="container-header">    
+    <a href="https://codingturtles.altervista.org/">
         <img src="images/logo.png" alt="Coding Turtles Logo" class="logo">
+    </a>
         <div class="title">
             <h1>Coding Turtles</h1>
             <p>Allenamento per corpo e mente</p>
