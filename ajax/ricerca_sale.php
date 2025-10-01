@@ -3,10 +3,16 @@ require_once '../database/db.php';
 
 
 // Query iniziale con LEFT JOIN, senza GROUP BY
-$sql = "SELECT C.codice, C.nome, C.tema, C.mq, COUNT(A.sala) AS nFasceOrarie
-FROM Sala AS C 
-LEFT JOIN FasciaOraria AS A ON C.codice = A.sala
-WHERE 1 = 1";
+$sql = "SELECT 
+        C.codice, 
+        C.nome, 
+        C.tema, 
+        C.mq, 
+        COUNT(DISTINCT CONCAT_WS('|', A.sala, A.data, A.ora)) AS nFasceOrarie,
+        COUNT(DISTINCT P.nProg) AS nPrenotazioni
+        FROM Sala AS C
+        LEFT JOIN FasciaOraria AS A ON C.codice = A.sala
+        LEFT JOIN Prenotazione AS P ON C.codice = P.sala";
 
 //$sql = "SELECT codice, nome, tema, mq FROM Sala WHERE 1=1";
 
@@ -62,6 +68,7 @@ if ($stmt) {
                 <td>{$row['tema']}</td>
                 <td>{$row['mq']}</td>
                 <td><a href=\"fasce_orarie.php?sala={$row['codice']}\">{$row['nFasceOrarie']}</a></td>
+                <td><a href=\"prenotazioni.php?sala={$row['codice']}\">{$row['nPrenotazioni']}</a></td>
               </tr>";
         }
     } else {

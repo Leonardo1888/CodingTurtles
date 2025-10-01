@@ -78,6 +78,7 @@
                                 <th>Tel <i class="fa-solid fa-phone-volume"></i></th>
                                 <th>Email <i class="fa-solid fa-envelope"></i></th>
                                 <th>n.Abb</th>
+                                <th>n.Prenotazioni</th>
                             </tr>
                         </thead>
                         <tbody id="risultati-tabella-clienti">

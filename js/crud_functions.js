@@ -79,6 +79,7 @@ function displaySale(sale) {
                     </td>
                     <td>${sala.mq} m²</td>
                     <td><a href="fasce_orarie.php?sala=${sala.codice}">${sala.nFasceOrarie}</a></td>
+                    <td><a href="prenotazioni.php?sala=${sala.codice}">${sala.nPrenotazioni}</a></td>
                     <td>
                         <button class="btn btn-sm btn-primary me-1" onclick="editSala('${sala.codice}')" title="Modifica">
                             <i class="fa fa-edit"></i>

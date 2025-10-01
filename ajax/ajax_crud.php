@@ -128,9 +128,16 @@ switch ($action) {  //operazioni CRUD
 
         //$sql = "SELECT codice, nome, tema, mq FROM Sala";
 
-        $sql = "SELECT C.codice, C.nome, C.tema, C.mq, COUNT(A.sala) AS nFasceOrarie
+        $sql = "SELECT 
+                C.codice, 
+                C.nome, 
+                C.tema, 
+                C.mq, 
+                COUNT(DISTINCT CONCAT_WS('|', A.sala, A.data, A.ora)) AS nFasceOrarie,
+                COUNT(DISTINCT P.nProg) AS nPrenotazioni
                 FROM Sala AS C
-                LEFT JOIN FasciaOraria AS A ON C.codice = A.sala";
+                LEFT JOIN FasciaOraria AS A ON C.codice = A.sala
+                LEFT JOIN Prenotazione AS P ON C.codice = P.sala";
 
         if (count($where) > 0) {
             $sql .= " WHERE " . implode(' AND ', $where);

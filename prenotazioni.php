@@ -15,61 +15,65 @@
     <?php include("includes/header.php"); ?>
     <?php include("includes/navbar.php"); ?>
 
-    <?php // Verifica che quando fasce_orarie.php viene aperta non ci sia un valore per la GET.
-    $fasce_filtro = '';
+    <?php // Verifica che quando prenotazioni.php viene aperta non ci sia un valore per la GET.
+    $prenotazioni_filtro_sala = '';
+    $prenotazioni_filtro_cliente = '';
     if (isset($_GET['sala'])) {
-        $fasce_filtro = htmlspecialchars($_GET['sala']);
+        $prenotazioni_filtro_sala = htmlspecialchars($_GET['sala']);
+    }
+    if (isset($_GET['cliente'])) {
+        $prenotazioni_filtro_cliente = htmlspecialchars($_GET['cliente']);
     }
     ?>
 
     <div class="main-container">
         <div class="contenitore-centrale">
             <aside class="colonna-filtro">
-                <h3>Filtra le Fasce Orarie</h3>
-                <form id="filtro-fasce_orarie-form">
+                <h3>Filtra le Prenotazioni</h3>
+                <form id="filtro-prenotazioni-form">
+                    <label for="cliente">Codice Cliente:</label>
+                    <input type="text" id="cliente" name="cliente" value="<?php echo $prenotazioni_filtro_cliente ?>"><br>
+
                     <label for="sala">Codice Sala:</label>
-                    <input type="text" id="sala" name="sala" value="<?php echo $fasce_filtro ?>"><br>
+                    <input type="text" id="sala" name="sala" value="<?php echo $prenotazioni_filtro_sala ?>"><br>
 
                     <label>Data:</label>
                     <div class="input-range">
-                        <input type="date" id="inizio_fascia_min" name="inizio_fascia_min">
+                        <input type="date" id="inizio_prenotazione_min" name="inizio_prenotazione_min">
                         <span>-</span>
-                        <input type="date" id="inizio_fascia_max" name="inizio_fascia_max">
+                        <input type="date" id="inizio_prenotazione_max" name="inizio_prenotazione_max">
                     </div><br>
 
                     <label>Ora:</label>
                     <div class="input-range">
-                        <input type="time" id="fine_ora_fascia_min" name="fine_ora_fascia_min">
+                        <input type="time" id="fine_ora_prenotazione_min" name="fine_ora_prenotazione_min">
                         <span>-</span>
-                        <input type="time" id="fine_ora_fascia_max" name="fine_ora_fascia_max">
+                        <input type="time" id="fine_ora_prenotazione_max" name="fine_ora_prenotazione_max">
                     </div><br>
 
-                    <label>Durata:</label>
-                    <div class="input-range">
-                        da <input type="number" id="durata_min" name="durata_min" placeholder="min">
-                        <span>a</span>
-                        <input type="number" id="durata_max" name="durata_max" placeholder="max">
-                    </div><br>
+                    <label>Posto:</label>
+                    <input type="text" id="posto" name="posto"><br>
 
                     <button type="submit">Cerca</button>
                 </form>
             </aside>
 
             <main class="colonna-risultati" id="risultati">
-                <h2>FASCE ORARIE</h2>
-                <p>Scopri le fasce orarie!</p>
+                <h2>PRENOTAZIONI</h2>
+                <p>Scopri le prenotazioni!</p>
 
                 <div class="table-responsive">
                     <table>
                         <thead>
                             <tr>
+                                <th>Codice Cliente</th>
                                 <th>Codice Sala</th>
                                 <th>Data</th>
                                 <th>Ora</th>
-                                <th>Durata</th>
+                                <th>Posto</th>
                             </tr>
                         </thead>
-                        <tbody id="risultati-tabella-fasce_orarie">
+                        <tbody id="risultati-tabella-prenotazioni">
                         </tbody>
                     </table>
                 </div>

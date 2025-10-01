@@ -80,6 +80,7 @@
                                 <th>Tema</th>
                                 <th>Metri Quadrati</th>
                                 <th>n.Fasce Orarie</th>
+                                <th>n.Prenotazioni</th>
                                 <th>Azioni</th>
                             </tr>
                         </thead>

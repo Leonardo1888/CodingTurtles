@@ -60,4 +60,14 @@ $(document).ready(function() {
       eseguiRicerca('#filtro-fasce_orarie-form', '#risultati-tabella-fasce_orarie', 'ajax/ricerca_fasce-orarie.php');
   }
 
+  // Gestione della ricerca per le prenotazioni
+  if ($('#filtro-prenotazioni-form').length) {
+      $('#filtro-prenotazioni-form').on('submit', function(e) {
+          e.preventDefault();
+          eseguiRicerca('#filtro-prenotazioni-form', '#risultati-tabella-prenotazioni', 'ajax/ricerca_prenotazioni.php');
+      });
+      // Esegue la ricerca iniziale
+      eseguiRicerca('#filtro-prenotazioni-form', '#risultati-tabella-prenotazioni', 'ajax/ricerca_prenotazioni.php');
+  }
+
 });

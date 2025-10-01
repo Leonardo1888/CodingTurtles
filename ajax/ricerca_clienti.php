@@ -2,9 +2,10 @@
 require_once '../database/db.php';
 
 // Query iniziale con LEFT JOIN, senza GROUP BY
-$sql = "SELECT C.codice, C.nome, C.cognome, C.cf, C.dataNas, C.indirizzo, C.tel, C.email, COUNT(A.nAbb) AS nAbbonamenti
+$sql = "SELECT C.codice, C.nome, C.cognome, C.cf, C.dataNas, C.indirizzo, C.tel, C.email, COUNT(A.nAbb) AS nAbbonamenti, COUNT(DISTINCT P.nProg) AS nPrenotazioni
 FROM Cliente AS C 
 LEFT JOIN Abbonamento AS A ON C.codice = A.cliente
+LEFT JOIN Prenotazione AS P ON C.codice = P.cliente
 WHERE 1 = 1";
 
 $params = [];
@@ -83,14 +84,15 @@ if($stmt) {
                 <td><a href=\"tel:+{$row['tel']}\">{$row['tel']}</a></td>
                 <td><a href=\"mailto:{$row['email']}\">{$row['email']}</a></td>
                 <td><a href=\"abbonamenti.php?cliente={$row['codice']}\">{$row['nAbbonamenti']}</a></td>
+                <td><a href=\"prenotazioni.php?cliente={$row['codice']}\">{$row['nPrenotazioni']}</a></td>
             </tr>";
         }
     } else {
-        $output = "<tr><td colspan='9'>Nessun cliente trovato con i filtri specificati.</td></tr>";
+        $output = "<tr><td colspan='10'>Nessun cliente trovato con i filtri specificati.</td></tr>";
     }
     $stmt->close();
 } else {
-    $output = "<tr><td colspan='9'>Errore SQL: " . $conn->error . "</td></tr>";
+    $output = "<tr><td colspan='10'>Errore SQL: " . $conn->error . "</td></tr>";
 }
 
 $conn->close();
