@@ -46,9 +46,9 @@
 
                     <label>Ora:</label>
                     <div class="input-range">
-                        <input type="time" id="fine_ora_prenotazione_min" name="fine_ora_prenotazione_min">
+                        <input type="time" id="ora_prenotazione_min" name="ora_prenotazione_min">
                         <span>-</span>
-                        <input type="time" id="fine_ora_prenotazione_max" name="fine_ora_prenotazione_max">
+                        <input type="time" id="ora_prenotazione_max" name="ora_prenotazione_max">
                     </div><br>
 
                     <label>Posto:</label>

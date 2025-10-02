@@ -8,23 +8,38 @@ $types = '';
 if(!empty($_POST['cliente'])) {
     $sql .= " AND cliente LIKE ?";
     $params[] = '%' . $_POST['cliente'] . '%';
-    $types .= 's';
+    $types .= 's'; // 's' per stringa, dato che le date vengono passate come stringhe
 }
 if(!empty($_POST['sala'])) {
     $sql .= " AND sala LIKE ?";
     $params[] = '%' . $_POST['sala'] . '%';
     $types .= 's';
 }
-if(!empty($_POST['data'])) {
-    $sql .= " AND data LIKE ?";
-    $params[] = '%' . $_POST['data'] . '%';
+
+// Gestione del range di date delle prenotazioni
+if (!empty($_POST['inizio_prenotazione_min'])) {
+    $sql .= " AND data >= ?";
+    $params[] = $_POST['inizio_prenotazione_min'];
+    $types .= 's'; 
+}
+if (!empty($_POST['inizio_prenotazione_max'])) {
+    $sql .= " AND data <= ?";
+    $params[] = $_POST['inizio_prenotazione_max'];
     $types .= 's';
 }
-if(!empty($_POST['ora'])) {
-    $sql .= " AND ora LIKE ?";
-    $params[] = '%' . $_POST['ora'] . '%';
+
+// Gestione del range di date delle prenotazioni
+if (!empty($_POST['ora_prenotazione_min'])) {
+    $sql .= " AND ora >= ?";
+    $params[] = $_POST['ora_prenotazione_min'];
+    $types .= 's'; 
+}
+if (!empty($_POST['ora_prenotazione_max'])) {
+    $sql .= " AND ora <= ?";
+    $params[] = $_POST['ora_prenotazione_max'];
     $types .= 's';
 }
+
 if(!empty($_POST['posto'])) {
     $sql .= " AND posto LIKE ?";
     $params[] = '%' . $_POST['posto'] . '%';
