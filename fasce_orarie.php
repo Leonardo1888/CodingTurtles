@@ -32,23 +32,23 @@
 
                     <label>Data:</label>
                     <div class="input-range">
-                        <input type="date" id="inizio_fascia_min" name="inizio_fascia_min">
+                        <input type="date" id="data_inizio" name="data_inizio">
                         <span>-</span>
-                        <input type="date" id="inizio_fascia_max" name="inizio_fascia_max">
+                        <input type="date" id="data_fine" name="data_fine">
                     </div><br>
 
                     <label>Ora:</label>
                     <div class="input-range">
-                        <input type="time" id="fine_ora_fascia_min" name="fine_ora_fascia_min">
+                        <input type="time" id="ora_inizio" name="ora_inizio">
                         <span>-</span>
-                        <input type="time" id="fine_ora_fascia_max" name="fine_ora_fascia_max">
+                        <input type="time" id="ora_fine" name="ora_fine">
                     </div><br>
 
                     <label>Durata:</label>
                     <div class="input-range">
-                        da <input type="number" id="durata_min" name="durata_min" placeholder="min">
+                        da <input type="number" id="durata_inizio" name="durata_inizio" placeholder="min">
                         <span>a</span>
-                        <input type="number" id="durata_max" name="durata_max" placeholder="max">
+                        <input type="number" id="durata_fine" name="durata_fine" placeholder="max">
                     </div><br>
 
                     <button type="submit">Cerca</button>
