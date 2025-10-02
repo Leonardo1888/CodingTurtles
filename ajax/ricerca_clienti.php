@@ -2,7 +2,7 @@
 require_once '../database/db.php';
 
 // Query iniziale con LEFT JOIN, senza GROUP BY
-$sql = "SELECT C.codice, C.nome, C.cognome, C.cf, C.dataNas, C.indirizzo, C.tel, C.email, COUNT(A.nAbb) AS nAbbonamenti, COUNT(DISTINCT P.nProg) AS nPrenotazioni
+$sql = "SELECT C.codice, C.nome, C.cognome, C.cf, C.dataNas, C.indirizzo, C.tel, C.email, COUNT(DISTINCT A.nAbb) AS nAbbonamenti, COUNT(DISTINCT P.nProg) AS nPrenotazioni
 FROM Cliente AS C 
 LEFT JOIN Abbonamento AS A ON C.codice = A.cliente
 LEFT JOIN Prenotazione AS P ON C.codice = P.cliente

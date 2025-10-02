@@ -104,12 +104,12 @@ for codice in clienti_codici:
     # Generazione del CF in modo strutturato
     cf = genera_cf(nome, cognome, data_nas)
     
-    indirizzo = f"Via {random.choice(['Roma', 'Milano', 'Napoli'])} {random.randint(1, 100)}"
-    tel = ''.join(random.choices('0123456789', k=10))
+    indirizzo = f"{random.randint(1, 100)} Via {random.choice(['Roma', 'Milano', 'Napoli', 'Torino', 'Palermo'])}"
+    tel = ''.join(random.choices('0123456789', k=9))
     email = f"{nome.lower()}.{cognome.lower()}{random.randint(10,99)}@example.com"
     cliente = {'codice': codice, 'nome': nome, 'cognome': cognome, 'cf': cf, 'dataNas': data_nas, 'indirizzo': indirizzo, 'tel': tel, 'email': email}
     generated_clienti.append(cliente)
-    sql_queries.append(f"INSERT INTO Cliente (codice, nome, cognome, cf, dataNas, indirizzo, tel, email) VALUES ('{cliente['codice']}', '{cliente['nome']}', '{cliente['cognome']}', '{cliente['cf']}', '{cliente['dataNas']}', '{cliente['indirizzo']}', '{cliente['tel']}', '{cliente['email']});")
+    sql_queries.append(f"INSERT INTO Cliente (codice, nome, cognome, cf, dataNas, indirizzo, tel, email) VALUES ('{cliente['codice']}', '{cliente['nome']}', '{cliente['cognome']}', '{cliente['cf']}', '{cliente['dataNas']}', '{cliente['indirizzo']}', '{cliente['tel']}', '{cliente['email']}');")
 
 # --- 4. POPOLAMENTO Abbonamento ---
 prezzo_durata_map = {
@@ -205,7 +205,7 @@ for posto in posti_da_prenotare:
             abbonamento_usato = random.choice(abbonamenti_validi)
             sub = {'prenotazione': prenotazione['nProg'], 'abbonamento': abbonamento_usato['nAbb']}
             generated_sub_abbonamenti.append(sub)
-            sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({sub['prenotazione']}, '{sub['abbonamento']});")
+            sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({sub['prenotazione']}, '{sub['abbonamento']}');")
 
     nProg_prenotazione += 1
 
