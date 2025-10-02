@@ -179,9 +179,9 @@ posti_da_prenotare = random.sample(generated_posti, int(len(generated_posti) * 0
 nProg_prenotazione = 1
 
 prenotazioni_per_cliente_orario = set()
-
 for posto in posti_da_prenotare:
-    while True:         #il ciclo va avanti finché non trova una combinazione cliente|data|ora che non appartiene a quelle già inserite nel db
+# 1. Troviamo un cliente casuale che non abbia già prenotato in questa fascia
+    while True:
         cliente_casuale = random.choice(clienti_codici)
         key = (cliente_casuale, posto['data'], posto['ora'])
         if key not in prenotazioni_per_cliente_orario:
@@ -189,33 +189,45 @@ for posto in posti_da_prenotare:
         
     prenotazioni_per_cliente_orario.add(key)
 
+    abb_to_add = 'nessuno' # Valore predefinito se non c'è abbonamento valido
+    abbonamento_usato = None # Oggetto abbonamento se trovato
+
+    # 2. Controlla e associa un abbonamento valido per la data della prenotazione
+    if cliente_casuale in abbonamenti_per_cliente:
+        # Filtriamo gli abbonamenti per validità
+        abbonamenti_validi = [
+            abb for abb in abbonamenti_per_cliente[cliente_casuale]
+            if abb['inizio'] <= posto['data'] <= abb['fine'] # check validità data
+        ]
+        
+        if abbonamenti_validi:
+            # Scegliamo casualmente uno degli abbonamenti validi
+            abbonamento_usato = random.choice(abbonamenti_validi)
+            abb_to_add = abbonamento_usato['nAbb']
+
+    # 3. Creazione record Prenotazione
     prenotazione = {
         'nProg': nProg_prenotazione,
         'cliente': cliente_casuale,
         'sala': posto['sala'],
         'data': posto['data'],
         'ora': posto['ora'],
-        'posto': posto['nProg']
+        'posto': posto['nProg'],
+        # abbonamento sarà 'AXXX' o 'Nessuno'
+        'abbonamento': abb_to_add
     }
     generated_prenotazioni.append(prenotazione)
-    sql_queries.append(f"INSERT INTO Prenotazione (nProg, cliente, sala, data, ora, posto) VALUES ({prenotazione['nProg']}, '{prenotazione['cliente']}', '{prenotazione['sala']}', '{prenotazione['data']}', '{prenotazione['ora']}', {prenotazione['posto']});")
-    
-    # Tentiamo di associare un SubAbbonamento
-    if cliente_casuale in abbonamenti_per_cliente:
-        # Controlla se il cliente ha un abbonamento valido per la data della prenotazione
-        abbonamenti_validi = [
-            abb for abb in abbonamenti_per_cliente[cliente_casuale]
-            if abb['inizio'] <= prenotazione['data'] <= abb['fine']
-        ]
-        
-        if abbonamenti_validi:
-            # Associa la prenotazione a uno degli abbonamenti validi
-            abbonamento_usato = random.choice(abbonamenti_validi)
-            sub = {'prenotazione': prenotazione['nProg'], 'abbonamento': abbonamento_usato['nAbb']}
-            generated_sub_abbonamenti.append(sub)
-            sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({sub['prenotazione']}, '{sub['abbonamento']}');")
+
+    sql_queries.append(f"INSERT INTO Prenotazione (nProg, cliente, sala, data, ora, posto, abbonamento) VALUES ({prenotazione['nProg']}, '{prenotazione['cliente']}', '{prenotazione['sala']}', '{prenotazione['data']}', '{prenotazione['ora']}', {prenotazione['posto']}, '{prenotazione['abbonamento']}');")
+
+    # 4. Creazione record SubAbbonamento (solo se abbiamo usato un abbonamento valido)
+    if abbonamento_usato:
+        sub = {'prenotazione': prenotazione['nProg'], 'abbonamento': abbonamento_usato['nAbb']}
+        generated_sub_abbonamenti.append(sub)
+        sql_queries.append(f"INSERT INTO SubAbbonamento (prenotazione, abbonamento) VALUES ({sub['prenotazione']}, '{sub['abbonamento']}');")
 
     nProg_prenotazione += 1
+
 
 # --- 8. SCRITTURA FILE SQL ---
 with open('popola_db.txt', 'w', encoding='utf-8') as f:

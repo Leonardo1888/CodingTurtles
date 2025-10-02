@@ -20,6 +20,10 @@
     if (isset($_GET['cliente'])) {
         $cliente_filtro = htmlspecialchars($_GET['cliente']);
     }
+    $abbonamento_filtro = '';
+    if (isset($_GET['abbonamento'])) {
+        $abbonamento_filtro = htmlspecialchars($_GET['abbonamento']);
+    }
     ?>
 
     <div class="main-container">
@@ -28,7 +32,7 @@
                 <h3>Filtra gli abbonamenti</h3>
                 <form id="filtro-abbonamenti-form">
                     <label for="nAbb">Codice Abbonamento:</label>
-                    <input type="text" id="nAbb" name="nAbb"><br>
+                    <input type="text" id="nAbb" name="nAbb" value="<?php echo $abbonamento_filtro ?>"><br>
 
                     <label for="cliente">Codice Cliente:</label>
                     <input type="text" id="cliente" name="cliente" value="<?php echo $cliente_filtro; ?>"><br>

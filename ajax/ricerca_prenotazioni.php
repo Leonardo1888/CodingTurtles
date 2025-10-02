@@ -1,7 +1,7 @@
 <?php
 require_once '../database/db.php';
 
-$sql = "SELECT cliente, sala, data, ora, posto FROM Prenotazione WHERE 1=1";
+$sql = "SELECT cliente, sala, data, ora, posto, abbonamento FROM Prenotazione WHERE 1=1";
 $params = [];
 $types = '';
 
@@ -46,6 +46,11 @@ if(!empty($_POST['posto'])) {
     $types .= 's';
 }
 
+if(!empty($_POST['abbonamento'])) {
+    $sql .= " AND abbonamento LIKE ?";
+    $params[] = '%' . $_POST['abbonamento'] . '%';
+    $types .= 's';
+}
 
 $stmt = $conn->prepare($sql);
 $output = '';
@@ -65,6 +70,7 @@ if($stmt) {
                 <td>{$row['data']}</td>
                 <td>{$row['ora']}</td>
                 <td>{$row['posto']}</td>
+                <td><a href=\"abbonamenti.php?abbonamento={$row['abbonamento']}\">{$row['abbonamento']}</a></td>
               </tr>";
         }
     } else {

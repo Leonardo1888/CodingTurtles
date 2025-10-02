@@ -54,6 +54,9 @@
                     <label>Posto:</label>
                     <input type="text" id="posto" name="posto"><br>
 
+                    <label for="abbonamento">Codice Abbonamento:</label>
+                    <input type="text" id="abbonamento" name="abbonamento"><br>
+
                     <button type="submit">Cerca</button>
                 </form>
             </aside>
@@ -71,6 +74,7 @@
                                 <th>Data</th>
                                 <th>Ora</th>
                                 <th>Posto</th>
+                                <th>Abbonamento</th>
                             </tr>
                         </thead>
                         <tbody id="risultati-tabella-prenotazioni">
