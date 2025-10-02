@@ -178,9 +178,17 @@ for abb in generated_abbonamenti:
 posti_da_prenotare = random.sample(generated_posti, int(len(generated_posti) * 0.7))
 nProg_prenotazione = 1
 
+prenotazioni_per_cliente_orario = set()
+
 for posto in posti_da_prenotare:
-    cliente_casuale = random.choice(clienti_codici)
-    
+    while True:         #il ciclo va avanti finché non trova una combinazione cliente|data|ora che non appartiene a quelle già inserite nel db
+        cliente_casuale = random.choice(clienti_codici)
+        key = (cliente_casuale, posto['data'], posto['ora'])
+        if key not in prenotazioni_per_cliente_orario:
+            break
+        
+    prenotazioni_per_cliente_orario.add(key)
+
     prenotazione = {
         'nProg': nProg_prenotazione,
         'cliente': cliente_casuale,
