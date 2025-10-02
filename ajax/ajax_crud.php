@@ -221,6 +221,39 @@ switch ($action) {  //operazioni CRUD
         }
         $stmt->close();
 
+        // Elimina fasce orarie di sala eliminata
+        $stmt = $conn->prepare("DELETE FROM FasciaOraria WHERE sala = ?");
+        $stmt->bind_param('s', $codice);
+        if ($stmt->execute()) {
+            $response['success'] = true;
+            $response['message'] = "Fascia oraria di '$codice' - '$nome' eliminate con successo";
+        } else {
+            $response['message'] = "Errore durante l'eliminazione delle fasce orarie";
+        }
+        $stmt->close();
+        
+        // Elimina posti di sala eliminata
+        $stmt = $conn->prepare("DELETE FROM Posto WHERE sala = ?");
+        $stmt->bind_param('s', $codice);
+        if ($stmt->execute()) {
+            $response['success'] = true;
+            $response['message'] = "Posti di '$codice' - '$nome' eliminati con successo";
+        } else {
+            $response['message'] = "Errore durante l'eliminazione dei posti";
+        }
+        $stmt->close();
+
+        // Elimina prenotazioni di sala eliminata
+        $stmt = $conn->prepare("DELETE FROM Prenotazione WHERE sala = ?");
+        $stmt->bind_param('s', $codice);
+        if ($stmt->execute()) {
+            $response['success'] = true;
+            $response['message'] = "Prenotazioni di '$codice' - '$nome' eliminate con successo";
+        } else {
+            $response['message'] = "Errore durante l'eliminazione delle prenotazioni";
+        }
+        $stmt->close();
+
         // Elimina sala
         $stmt = $conn->prepare("DELETE FROM Sala WHERE codice = ?");
         $stmt->bind_param('s', $codice);

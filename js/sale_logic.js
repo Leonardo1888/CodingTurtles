@@ -1,7 +1,5 @@
 // La logica che gestisce gli eventi sulla pagina (come click sui pulsanti statici e submit di form)
-// deve essere eseguita solo quando il DOM è completamente caricato.
 $(document).ready(function() {
-
     // Apertura modale aggiunta (e altri eventi statici)
     $('#openAddSala').click(function() {
         $('#modalTitle').text('Aggiungi Sala');

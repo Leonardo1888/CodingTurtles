@@ -16,14 +16,14 @@
     <?php include("includes/navbar.php"); ?>
 
     <?php // Verifica che quando abbonamenti.php viene aperta non ci sia un valore per la GET.
-    $cliente_filtro = '';
-    if (isset($_GET['cliente'])) {
-        $cliente_filtro = htmlspecialchars($_GET['cliente']);
-    }
-    $abbonamento_filtro = '';
-    if (isset($_GET['abbonamento'])) {
-        $abbonamento_filtro = htmlspecialchars($_GET['abbonamento']);
-    }
+        $cliente_filtro = '';
+        if (isset($_GET['cliente'])) {
+            $cliente_filtro = htmlspecialchars($_GET['cliente']);
+        }
+        $abbonamento_filtro = '';
+        if (isset($_GET['abbonamento'])) {
+            $abbonamento_filtro = htmlspecialchars($_GET['abbonamento']);
+        }
     ?>
 
     <div class="main-container">

@@ -39,15 +39,15 @@
                     <select id="Tema" name="Tema">
                         <option value="">Tutti</option>
                         <?php
-                        require_once 'database/db.php';
-                        $sql = "SELECT DISTINCT tema FROM Sala";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . htmlspecialchars($row['tema']) . "'>" . htmlspecialchars($row['tema']) . "</option>";
+                            require_once 'database/db.php';
+                            $sql = "SELECT DISTINCT tema FROM Sala";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . htmlspecialchars($row['tema']) . "'>" . htmlspecialchars($row['tema']) . "</option>";
+                                }
                             }
-                        }
-                        $conn->close();
+                            $conn->close();
                         ?>
                     </select><br />
 
@@ -70,7 +70,7 @@
                     </button>
                 </div>
                 <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
-
+                
                     <table cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse;">
                         <thead>
                             <tr>
@@ -100,13 +100,11 @@
                 <label>
                     Codice Sala (facoltativo):
                     <input type="text" id="form-codice" name="codice" pattern="^S\d{3}$" />
-                </label>
-                <br />
+                </label><br />
                 <label>
                     Nome:
                     <input type="text" id="form-nome" name="nome" required maxlength="100" />
-                </label>
-                <br />
+                </label><br />
                 <label>
                     Tema:
                     <select id="form-tema" name="tema" required>
@@ -117,14 +115,12 @@
                         <option>Corpo libero</option>
                         <option>Sauna</option>
                     </select>
-                </label>
-                <br />
+                </label><br />
                 <label>
                     Metri Quadrati:
                     <input type="number" id="form-mq" name="mq" required min="1" max="1000" />
-                </label>
-                <br />
-                <div style="margin-top:10px;">
+                </label><br />
+                <div>
                     <button type="submit" id="form-submit-btn">Salva</button>
                     <button type="button" id="closeModalBtn">Annulla</button>
                 </div>
@@ -136,7 +132,6 @@
 
     <script src="js/crud_functions.js"></script>
     <script src="js/sale_logic.js"></script>
-
 
 </body>
 

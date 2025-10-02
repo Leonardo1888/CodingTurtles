@@ -1,7 +1,6 @@
 <?php
 require_once '../database/db.php';
 
-
 // Query iniziale con LEFT JOIN, senza GROUP BY
 $sql = "SELECT 
         C.codice, 

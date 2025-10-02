@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 });
 
-// Funzione per caricare le sale con filtri
+// Funzione per caricare le sale con filtri e i pulsanti
 function loadSale() {
     const formData = {
         action: 'read',
@@ -210,7 +210,7 @@ function updateSala() {
 // Funzione per eliminare una sala
 function deleteSala(codice, nome) {
     // Conferma eliminazione
-    if (!confirm(`Sei sicuro di voler eliminare la sala "${nome}" (${codice})?`)) {
+    if (!confirm('Sei sicuro di voler eliminare la sala "${nome}" (${codice})?')) {
         return;
     }
     
