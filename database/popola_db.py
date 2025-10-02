@@ -43,7 +43,7 @@ def genera_cf(nome, cognome, data_nas_str):
 
 # --- CONFIGURAZIONE ---
 NUM_SALE = 50
-NUM_CLIENTI = 200
+NUM_CLIENTI = 1000
 NUM_GIORNI_DA_POPOLARE = 7 # Popoliamo per una settimana
 START_DATE_PRENOTAZIONI = datetime(2025, 6, 1)
 
