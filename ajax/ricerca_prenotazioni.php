@@ -61,16 +61,20 @@ if($stmt) {
     }
     $stmt->execute();
     $result = $stmt->get_result();
-
+    
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
+            $abb_table = "<a href=\"abbonamenti.php?abbonamento={$row['abbonamento']}\">{$row['abbonamento']}</a>";
+            if($row['abbonamento'] == 'nessuno'){
+                $abb_table = "Nessuno";
+            }
             $output .= "<tr>
                 <td><a href=\"clienti.php?codice={$row['cliente']}\">{$row['cliente']}</a></td>
                 <td><a href=\"sale.php?Codice={$row['sala']}\">{$row['sala']}</a></td>
                 <td>{$row['data']}</td>
                 <td>{$row['ora']}</td>
                 <td>{$row['posto']}</td>
-                <td><a href=\"abbonamenti.php?abbonamento={$row['abbonamento']}\">{$row['abbonamento']}</a></td>
+                <td>" . $abb_table . "</td>
               </tr>";
         }
     } else {

@@ -74,7 +74,7 @@
                                 <th>Data</th>
                                 <th>Ora</th>
                                 <th>Posto</th>
-                                <th>Abbonamento</th>
+                                <th>Abbonamento usato</th>
                             </tr>
                         </thead>
                         <tbody id="risultati-tabella-prenotazioni">
