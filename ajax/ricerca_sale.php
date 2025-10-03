@@ -7,7 +7,7 @@ $sql = "SELECT
         C.nome, 
         C.tema, 
         C.mq, 
-        COUNT(DISTINCT CONCAT_WS('|', A.sala, A.data, A.ora)) AS nFasceOrarie,
+        COUNT(DISTINCT NULLIF(CONCAT_WS('|', A.sala, A.data, A.ora), '')) AS nFasceOrarie,
         COUNT(DISTINCT P.nProg) AS nPrenotazioni
         FROM Sala AS C
         LEFT JOIN FasciaOraria AS A ON C.codice = A.sala
