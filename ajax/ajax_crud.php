@@ -2,11 +2,13 @@
 header('Content-Type: application/json');
 require_once '../database/db.php'; //connessione al db
 
-function sanitize_input($data) {    //per evitare sql injection
+function sanitize_input($data)
+{    //per evitare sql injection
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-function validate_sala_data($codice, $nome, $tema, $mq) {   //gestione dell'input
+function validate_sala_data($codice, $nome, $tema, $mq)
+{   //gestione dell'input
     $errors = [];
     if (empty($codice)) {
         $errors[] = "Il codice sala è obbligatorio";
@@ -27,7 +29,8 @@ function validate_sala_data($codice, $nome, $tema, $mq) {   //gestione dell'inpu
     return $errors;
 }
 
-function generate_next_codice($conn) {
+function generate_next_codice($conn)
+{
     // Trova il più piccolo codice disponibile nel formato SNNN riempiendo i buchi
     $sql = "SELECT CAST(SUBSTRING(codice, 2) AS UNSIGNED) AS n FROM Sala ORDER BY n";
     $result = $conn->query($sql);
@@ -126,7 +129,37 @@ switch ($action) {  //operazioni CRUD
             $types .= 'i';
         }
 
-        //$sql = "SELECT codice, nome, tema, mq FROM Sala";
+        // Gestione dei parametri di ordinamento
+        $orderBy = sanitize_input($_POST['orderBy'] ?? 'codice'); // Default: codice
+        $orderDir = strtoupper(sanitize_input($_POST['orderDir'] ?? 'ASC')); // Default: ASC
+
+        // Colonne permesse per l'ordinamento
+        $allowedColumns = [
+            'codice',
+            'nome',
+            'tema',
+            'mq',
+            'nFasceOrarie',
+            'nPrenotazioni'
+        ];
+
+        // Mappa le colonne aggregate al loro alias
+        $orderByMap = [
+            'mq' => 'C.mq',
+            'nFasceOrarie' => 'nFasceOrarie',
+            'nPrenotazioni' => 'nPrenotazioni'
+        ];
+
+        // Validazione e sanitizzazione dell'ordinamento
+        if (!in_array($orderBy, $allowedColumns)) {
+            $orderBy = 'codice'; // Fallback a codice se non valido
+        }
+        if (!in_array($orderDir, ['ASC', 'DESC'])) {
+            $orderDir = 'ASC'; // Fallback a ASC se non valido
+        }
+
+        // Usa il mapping se necessario, altrimenti usa il nome della colonna
+        $orderColumn = $orderByMap[$orderBy] ?? 'C.' . $orderBy;
 
         $sql = "SELECT 
                 C.codice, 
@@ -231,7 +264,7 @@ switch ($action) {  //operazioni CRUD
             $response['message'] = "Errore durante l'eliminazione delle fasce orarie";
         }
         $stmt->close();
-        
+
         // Elimina posti di sala eliminata
         $stmt = $conn->prepare("DELETE FROM Posto WHERE sala = ?");
         $stmt->bind_param('s', $codice);
@@ -293,4 +326,3 @@ switch ($action) {  //operazioni CRUD
 }
 
 echo json_encode($response);
-?>

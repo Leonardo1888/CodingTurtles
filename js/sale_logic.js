@@ -118,28 +118,3 @@ function deleteSala(codice, nome) {
 function escapeHtml(text) {
     return $('<div>').text(text).html();
 }
-
-// Sovrascrivo displaySale per includere le azioni edit/delete nella tabella
-const originalDisplaySale = displaySale;
-displaySale = function(sale) {
-    let html = '';
-    if (sale.length === 0) {
-        html = '<tr><td colspan="5" style="text-align:center;">Nessuna sala trovata.</td></tr>';
-    } else {
-        sale.forEach(function(s) {
-            html += `<tr>
-                <td>${escapeHtml(s.codice)}</td>
-                <td>${escapeHtml(s.nome)}</td>
-                <td>${escapeHtml(s.tema)}</td>
-                <td>${s.mq}</td>
-                <td><a href="fasce_orarie.php?sala=${s.codice}">${s.nFasceOrarie}</a></td>
-                <td><a href="prenotazioni.php?sala=${s.codice}">${s.nPrenotazioni}</a></td>
-                <td>
-                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
-                    <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>
-                </td>
-            </tr>`;
-        });
-    }
-    $('#risultati-tabella-sale').html(html);
-};

@@ -67,32 +67,23 @@ function loadSale() {
 function displaySale(sale) {
     let html = '';
     if (sale.length === 0) {
-        html = '<tr><td colspan="6">Nessuna sala trovata</td></tr>';
+        html = '<tr><td colspan="5" style="text-align:center;">Nessuna sala trovata.</td></tr>';
     } else {
-        sale.forEach(function(sala) {
-            html += `
-                <tr>
-                    <td>${escapeHtml(sala.codice)}</td>
-                    <td>${escapeHtml(sala.nome)}</td>
-                    <td>
-                        <span class="badge ${getTemaClass(sala.tema)}">${escapeHtml(sala.tema)}</span>
-                    </td>
-                    <td>${sala.mq} m²</td>
-                    <td><a href="fasce_orarie.php?sala=${sala.codice}">${sala.nFasceOrarie}</a></td>
-                    <td><a href="prenotazioni.php?sala=${sala.codice}">${sala.nPrenotazioni}</a></td>
-                    <td>
-                        <button class="btn btn-sm btn-primary me-1" onclick="editSala('${sala.codice}')" title="Modifica">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteSala('${sala.codice}', '${escapeHtml(sala.nome)}')" title="Elimina">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
+        sale.forEach(function(s) {
+            html += `<tr>
+                <td>${escapeHtml(s.codice)}</td>
+                <td>${escapeHtml(s.nome)}</td>
+                <td>${escapeHtml(s.tema)}</td>
+                <td>${s.mq}</td>
+                <td><a href="fasce_orarie.php?sala=${s.codice}">${s.nFasceOrarie}</a></td>
+                <td><a href="prenotazioni.php?sala=${s.codice}">${s.nPrenotazioni}</a></td>
+                <td>
+                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
+                    <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>
+                </td>
+            </tr>`;
         });
     }
-    
     $('#risultati-tabella-sale').html(html);
 }
 
@@ -138,102 +129,7 @@ function addSala() {
     });
 }
 
-// Funzione per modificare una sala esistente
-function editSala(codice) {
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: { action: 'get_single', codice: codice },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                // Popola il form di modifica
-                $('#edit-codice').val(response.data.codice);
-                $('#edit-nome').val(response.data.nome);
-                $('#edit-tema').val(response.data.tema);
-                $('#edit-mq').val(response.data.mq);
-                
-                // Mostra il modal
-                $('#editSalaModal').modal('show');
-            } else {
-                showMessage('error', response.message);
-            }
-        },
-        error: function() {
-            console.log("errore nel crud funct in edit sala");
-            showMessage('error', 'Errore nel caricamento dei dati della sala');
-        }
-    });
-}
-
-// Funzione per aggiornare una sala
-function updateSala() {
-    const formData = {
-        action: 'update',
-        codice: $('#edit-codice').val().trim(),
-        nome: $('#edit-nome').val().trim(),
-        tema: $('#edit-tema').val(),
-        mq: $('#edit-mq').val()
-    };
-    
-    // Validazione frontend
-    if (!validateSalaForm(formData, 'edit')) {
-        return;
-    }
-    
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: formData,
-        dataType: 'json',
-        beforeSend: function() {
-            $('#edit-sala-btn').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Aggiornando...');
-        },
-        success: function(response) {
-            $('#edit-sala-btn').prop('disabled', false).html('Aggiorna Sala');
-            
-            if (response.success) {
-                $('#editSalaModal').modal('hide');
-                loadSale();
-                showMessage('success', response.message);
-            } else {
-                showMessage('error', response.message);
-            }
-        },
-        error: function() {
-            $('#edit-sala-btn').prop('disabled', false).html('Aggiorna Sala');
-            showMessage('error', 'Errore di connessione al server');
-        }
-    });
-}
-
-// Funzione per eliminare una sala
-function deleteSala(codice, nome) {
-    // Conferma eliminazione
-    if (!confirm('Sei sicuro di voler eliminare la sala "${nome}" (${codice})?')) {
-        return;
-    }
-    
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: { action: 'delete', codice: codice },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                loadSale();
-                showMessage('success', response.message);
-            } else {
-                showMessage('error', response.message);
-            }
-        },
-        error: function() {
-            showMessage('error', 'Errore durante l\'eliminazione della sala');
-        }
-    });
-}
-
-// Funzione per generare automaticamente il codice sala
+// Funzione per generare automaticamente il codice sala durante la CREATE
 function generateCodiceSala() {
     $.ajax({
         type: 'POST',

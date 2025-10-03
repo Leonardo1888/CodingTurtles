@@ -1,4 +1,5 @@
 <?php
+// Chiamata AJAX per mostrare le sale FILTRATE
 require_once '../database/db.php';
 
 // Query iniziale con LEFT JOIN, senza GROUP BY
