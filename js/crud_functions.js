@@ -67,7 +67,9 @@ function loadSale() {
         nome: $('#Nome').val(),
         tema: $('#Tema').val(),
         mq_min: $('#Mq_min').val(),
-        mq_max: $('#Mq_max').val()
+        mq_max: $('#Mq_max').val(),
+        orderBy: currentOrderBy,
+        orderDir: currentOrderDir
     };
     
     $.ajax({

@@ -137,7 +137,6 @@ switch ($action) {  //operazioni CRUD
         $allowedColumns = [
             'codice',
             'nome',
-            'tema',
             'mq',
             'nFasceOrarie',
             'nPrenotazioni'
@@ -145,9 +144,12 @@ switch ($action) {  //operazioni CRUD
 
         // Mappa le colonne aggregate al loro alias
         $orderByMap = [
+            'codice' => 'C.codice',
+            'nome' => 'C.nome',
             'mq' => 'C.mq',
             'nFasceOrarie' => 'nFasceOrarie',
-            'nPrenotazioni' => 'nPrenotazioni'
+            'nPrenotazioni' => 'nPrenotazioni',
+            'codice' => 'C.codice'
         ];
 
         // Validazione e sanitizzazione dell'ordinamento
@@ -175,8 +177,8 @@ switch ($action) {  //operazioni CRUD
         if (count($where) > 0) {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
-        $sql .= " GROUP BY C.codice, C.nome, C.tema, C.mq ORDER BY C.codice";
-
+        $sql .= " GROUP BY C.codice, C.nome, C.tema, C.mq";
+        $sql .= " ORDER BY " . $orderColumn . " " . $orderDir; // <--- INSERIMENTO ORDINAMENTO DINAMICO
         $stmt = $conn->prepare($sql);
         if ($types) {
             $stmt->bind_param($types, ...$params);

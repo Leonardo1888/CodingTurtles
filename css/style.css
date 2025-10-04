@@ -492,31 +492,48 @@ tbody tr td[colspan="4"] {
 
 /* ----------------- SORTING FOR SALE.PHP TABLE ----------------- */
 th.sortable {
-    cursor: pointer;
-    position: relative;
-    padding-right: 20px; /* Spazio per l'icona */
+  cursor: pointer;
+  position: relative;
+  padding-right: 30px; /* Spazio per l'icona */
 }
 
 th.sortable .sort-icon {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    content: '';
-    border: 4px solid transparent;
-    opacity: 0.3;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  content: '';
+  border: 4px solid transparent;
+  opacity: 0.3;
 }
+
+
+/* ... Il CSS per .sortable e .sort-icon (dimensioni, posizione, ecc.) rimane lo stesso. ... */
 
 /* Freccia su (ordinamento crescente) */
 th.sorted-asc .sort-icon {
-    border-bottom-color: #333; /* Colore della freccia */
-    opacity: 1;
+  /* MANTIENI: Colore freccia bianca */
+  border-bottom-color: white; 
+  
+  /* 💡 CORREZIONE CHIAVE: Forziamo gli altri lati a essere trasparenti */
+  border-top-color: transparent; 
+  border-left-color: transparent;
+  border-right-color: transparent;
+  
+  opacity: 1;
 }
 
 /* Freccia giù (ordinamento decrescente) */
 th.sorted-desc .sort-icon {
-    border-top-color: #333; /* Colore della freccia */
-    opacity: 1;
+  /* MANTIENI: Colore freccia bianca */
+  border-top-color: white; 
+  
+  /* 💡 CORREZIONE CHIAVE: Forziamo gli altri lati a essere trasparenti */
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  
+  opacity: 1;
 }
 
 /* ----------------- SALE.PHP: MODALE ----------------- */

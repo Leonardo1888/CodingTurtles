@@ -70,23 +70,39 @@
                     </button>
                 </div>
                 <p>Scopri le sale della palestra Coding Turtles filtrando a sinistra!</p>
-                
-                    <table cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse;">
-                        <thead>
-                            <tr>
-                                <th>Codice Sala</th>
-                                <th>Nome</th>
-                                <th>Tema</th>
-                                <th class="sortable" onclick="sortTable('mq')" data-column="mq">Metri Quadrati</th><span class="sort-icon"></span>
-                                <th>n.Fasce Orarie</th>
-                                <th class="sortable" onclick="sortTable('nPrenotazioni')" data-column="nPrenotazioni">n.Prenotazioni</th><span class="sort-icon"></span>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody id="risultati-tabella-sale">
-                            <!-- Dati caricati via AJAX -->
-                        </tbody>
-                    </table>
+                <p>Per ordinare le sale, clicca semplicemente sulle intestazioni di colonna.</p>
+
+                <table cellspacing="0" cellpadding="6" style="width:100%; border-collapse:collapse;">
+                    <thead>
+                        <tr>
+                            <th class="sortable" onclick="sortTable('codice')" data-column="codice">
+                                Codice Sala
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th class="sortable" onclick="sortTable('nome')" data-column="nome">
+                                Nome
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th>Tema</th>
+                            <th class="sortable" onclick="sortTable('mq')" data-column="mq">
+                                Metri Quadrati
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th class="sortable" onclick="sortTable('nFasceOrarie')" data-column="nFasceOrarie">
+                                n.fasce orarie
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th class="sortable" onclick="sortTable('nPrenotazioni')" data-column="nPrenotazioni">
+                                n.Prenotazioni
+                                <span class="sort-icon"></span>
+                            </th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="risultati-tabella-sale">
+                        <!-- Dati caricati via AJAX -->
+                    </tbody>
+                </table>
             </main>
         </div>
     </div>

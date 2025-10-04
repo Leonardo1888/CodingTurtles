@@ -59,8 +59,39 @@ $(document).ready(function() {
     loadSale();
 });
 
+let currentOrderBy = 'codice';
+let currentOrderDir = 'ASC';
 
 // Funzione di escape HTML per sicurezza
 function escapeHtml(text) {
     return $('<div>').text(text).html();
 }
+
+function updateSortIndicators() {
+    // 1. Rimuovi tutte le classi di ordinamento da tutte le intestazioni cliccabili
+    $('th.sortable').removeClass('sorted-asc sorted-desc');
+
+    // 2. Trova l'intestazione corrente usando l'attributo data-column
+    const $currentHeader = $(`th[data-column='${currentOrderBy}']`);
+
+    // 3. Aggiungi la classe appropriata
+    if (currentOrderDir === 'ASC') {
+        $currentHeader.addClass('sorted-asc');
+    } else if (currentOrderDir === 'DESC') {
+        $currentHeader.addClass('sorted-desc');
+    }
+}
+
+function sortTable(column) {
+    // Se la colonna è la stessa, inverti la direzione
+    if(currentOrderBy === column) {
+        currentOrderDir = currentOrderDir === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+        currentOrderBy = column;
+        currentOrderDir = 'ASC';
+    }
+
+    loadSale();
+    updateSortIndicators(); 
+}
+
