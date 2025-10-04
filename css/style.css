@@ -508,8 +508,6 @@ th.sortable .sort-icon {
 }
 
 
-/* ... Il CSS per .sortable e .sort-icon (dimensioni, posizione, ecc.) rimane lo stesso. ... */
-
 /* Freccia su (ordinamento crescente) */
 th.sorted-asc .sort-icon {
   /* MANTIENI: Colore freccia bianca */

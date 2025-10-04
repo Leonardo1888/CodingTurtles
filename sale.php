@@ -76,24 +76,24 @@
                     <thead>
                         <tr>
                             <th class="sortable" onclick="sortTable('codice')" data-column="codice">
-                                Codice Sala
+                                <u>Codice Sala</u>
                                 <span class="sort-icon"></span>
                             </th>
                             <th class="sortable" onclick="sortTable('nome')" data-column="nome">
-                                Nome
+                                <u>Nome</u>
                                 <span class="sort-icon"></span>
                             </th>
                             <th>Tema</th>
                             <th class="sortable" onclick="sortTable('mq')" data-column="mq">
-                                Metri Quadrati
+                                <u>Metri Quadrati</u>
                                 <span class="sort-icon"></span>
                             </th>
                             <th class="sortable" onclick="sortTable('nFasceOrarie')" data-column="nFasceOrarie">
-                                n.fasce orarie
+                                <u>n.fasce orarie</u>
                                 <span class="sort-icon"></span>
                             </th>
                             <th class="sortable" onclick="sortTable('nPrenotazioni')" data-column="nPrenotazioni">
-                                n.Prenotazioni
+                                <u>n.Prenotazioni</u>
                                 <span class="sort-icon"></span>
                             </th>
                             <th>Azioni</th>
