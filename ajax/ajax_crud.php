@@ -254,6 +254,7 @@ switch ($action) {  //operazioni CRUD
         }
         $stmt->close();
 
+        // --- CASCADE  --- 
         // Elimina fasce orarie di sala eliminata
         $stmt = $conn->prepare("DELETE FROM FasciaOraria WHERE sala = ?");
         $stmt->bind_param('s', $codice);

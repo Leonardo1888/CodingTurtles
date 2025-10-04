@@ -1,4 +1,5 @@
 // La logica che gestisce gli eventi sulla pagina (come click sui pulsanti statici e submit di form)
+
 $(document).ready(function() {
     // Apertura modale aggiunta (e altri eventi statici)
     $('#openAddSala').click(function() {
@@ -58,61 +59,6 @@ $(document).ready(function() {
     loadSale();
 });
 
-// Funzione per edit: apre modale con dati precaricati
-function editSala(codice) {
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: {
-            action: 'get_single',
-            codice: codice
-        },
-        dataType: 'json',
-        success: function(res) {
-            if (res.success) {
-                $('#modalTitle').text('Modifica Sala');
-                $('#form-action').val('update');
-                $('#form-codice').val(res.data.codice).prop('readonly', true);
-                $('#form-nome').val(res.data.nome);
-                $('#form-tema').val(res.data.tema);
-                $('#form-mq').val(res.data.mq);
-                $('#salaModal').show();
-            } else {
-                alert('Errore: ' + res.message);
-            }
-        },
-        error: function() {
-            alert('Errore di comunicazione con il server');
-        }
-    });
-}
-
-// Funzione per elimina sala
-function deleteSala(codice, nome) {
-    if (!confirm(`Eliminare la sala "${nome}" (${codice})?`)) {
-        return;
-    }
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: {
-            action: 'delete',
-            codice: codice
-        },
-        dataType: 'json',
-        success: function(res) {
-            if (res.success) {
-                alert(res.message);
-                loadSale();
-            } else {
-                alert('Errore: ' + res.message);
-            }
-        },
-        error: function() {
-            alert('Errore di comunicazione con il server');
-        }
-    });
-}
 
 // Funzione di escape HTML per sicurezza
 function escapeHtml(text) {

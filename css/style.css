@@ -490,8 +490,36 @@ tbody tr td[colspan="4"] {
   background-color: var(--verde);
 }
 
+/* ----------------- SORTING FOR SALE.PHP TABLE ----------------- */
+th.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 20px; /* Spazio per l'icona */
+}
 
-/* SALE.PHP: MODALE */
+th.sortable .sort-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    content: '';
+    border: 4px solid transparent;
+    opacity: 0.3;
+}
+
+/* Freccia su (ordinamento crescente) */
+th.sorted-asc .sort-icon {
+    border-bottom-color: #333; /* Colore della freccia */
+    opacity: 1;
+}
+
+/* Freccia giù (ordinamento decrescente) */
+th.sorted-desc .sort-icon {
+    border-top-color: #333; /* Colore della freccia */
+    opacity: 1;
+}
+
+/* ----------------- SALE.PHP: MODALE ----------------- */
 
 .modal-sfondo {
   position: fixed;
@@ -701,3 +729,4 @@ tbody td:last-child button+button {
     text-align: center;
   }
 }
+

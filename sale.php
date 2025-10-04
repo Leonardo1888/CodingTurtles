@@ -77,9 +77,9 @@
                                 <th>Codice Sala</th>
                                 <th>Nome</th>
                                 <th>Tema</th>
-                                <th>Metri Quadrati</th>
+                                <th class="sortable" onclick="sortTable('mq')" data-column="mq">Metri Quadrati</th><span class="sort-icon"></span>
                                 <th>n.Fasce Orarie</th>
-                                <th>n.Prenotazioni</th>
+                                <th class="sortable" onclick="sortTable('nPrenotazioni')" data-column="nPrenotazioni">n.Prenotazioni</th><span class="sort-icon"></span>
                                 <th>Azioni</th>
                             </tr>
                         </thead>

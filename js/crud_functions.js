@@ -9,85 +9,15 @@ $(document).ready(function() {
         loadSale();
     });
     
-    // Gestione form aggiungi sala
-    $('#add-sala-form').on('submit', function(e) {
-        e.preventDefault();
-        addSala();
-    });
-    
-    // Gestione form modifica sala
-    $('#edit-sala-form').on('submit', function(e) {
-        e.preventDefault();
-        updateSala();
-    });
-    
     // Auto-generate codice sala
     $('#generate-codice').on('click', function() {
         generateCodiceSala();
     });
 });
 
-// Funzione per caricare le sale con filtri e i pulsanti
-function loadSale() {
-    const formData = {
-        action: 'read',
-        codice: $('#Codice').val(),
-        nome: $('#Nome').val(),
-        tema: $('#Tema').val(),
-        mq_min: $('#Mq_min').val(),
-        mq_max: $('#Mq_max').val()
-    };
-    
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/ajax_crud.php',
-        data: formData,
-        dataType: 'json',
-        beforeSend: function() {
-            $('#risultati-tabella-sale').html('<tr><td colspan="6"><i class="fa fa-spinner fa-spin"></i> Caricamento...</td></tr>');
-        },
-        success: function(response) {
-            if (response.success) {
-                displaySale(response.data);
-                showMessage('success', response.message);
-            } else {
-                $('#risultati-tabella-sale').html('<tr><td colspan="6">Nessuna sala trovata</td></tr>');
-                showMessage('error', response.message);
-            }
-        },
-        error: function() {
-            console.log("errore in crud funct nel load");
-            $('#risultati-tabella-sale').html('<tr><td colspan="5">Errore nel caricamento dei dati</td></tr>');
-            showMessage('error', 'Errore di connessione al server');
-        }
-    });
-}
+/* ----------------- CRUD FUNCTIONS ----------------- */
 
-// Funzione per visualizzare le sale nella tabella
-function displaySale(sale) {
-    let html = '';
-    if (sale.length === 0) {
-        html = '<tr><td colspan="5" style="text-align:center;">Nessuna sala trovata.</td></tr>';
-    } else {
-        sale.forEach(function(s) {
-            html += `<tr>
-                <td>${escapeHtml(s.codice)}</td>
-                <td>${escapeHtml(s.nome)}</td>
-                <td>${escapeHtml(s.tema)}</td>
-                <td>${s.mq}</td>
-                <td><a href="fasce_orarie.php?sala=${s.codice}">${s.nFasceOrarie}</a></td>
-                <td><a href="prenotazioni.php?sala=${s.codice}">${s.nPrenotazioni}</a></td>
-                <td>
-                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
-                    <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>
-                </td>
-            </tr>`;
-        });
-    }
-    $('#risultati-tabella-sale').html(html);
-}
-
-// Funzione per aggiungere una nuova sala
+// CREATE
 function addSala() {
     const formData = {
         action: 'create',
@@ -125,6 +55,122 @@ function addSala() {
         error: function() {
             $('#add-sala-btn').prop('disabled', false).html('Aggiungi Sala');
             showMessage('error', 'Errore di connessione al server');
+        }
+    });
+}
+
+// READ: Funzione per caricare le sale con filtri e i pulsanti
+function loadSale() {
+    const formData = {
+        action: 'read',
+        codice: $('#Codice').val(),
+        nome: $('#Nome').val(),
+        tema: $('#Tema').val(),
+        mq_min: $('#Mq_min').val(),
+        mq_max: $('#Mq_max').val()
+    };
+    
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/ajax_crud.php',
+        data: formData,
+        dataType: 'json',
+        beforeSend: function() {
+            $('#risultati-tabella-sale').html('<tr><td colspan="6"><i class="fa fa-spinner fa-spin"></i> Caricamento...</td></tr>');
+        },
+        success: function(response) {
+            if (response.success) {
+                displaySale(response.data);
+                showMessage('success', response.message);
+            } else {
+                $('#risultati-tabella-sale').html('<tr><td colspan="6">Nessuna sala trovata</td></tr>');
+                showMessage('error', response.message);
+            }
+        },
+        error: function() {
+            console.log("errore in crud funct nel load");
+            $('#risultati-tabella-sale').html('<tr><td colspan="5">Errore nel caricamento dei dati</td></tr>');
+            showMessage('error', 'Errore di connessione al server');
+        }
+    });
+}
+
+// READ: Funzione per visualizzare le sale nella tabella
+function displaySale(sale) {
+    let html = '';
+    if (sale.length === 0) {
+        html = '<tr><td colspan="5" style="text-align:center;">Nessuna sala trovata.</td></tr>';
+    } else {
+        sale.forEach(function(s) {
+            html += `<tr>
+                <td>${escapeHtml(s.codice)}</td>
+                <td>${escapeHtml(s.nome)}</td>
+                <td>${escapeHtml(s.tema)}</td>
+                <td>${s.mq}</td>
+                <td><a href="fasce_orarie.php?sala=${s.codice}">${s.nFasceOrarie}</a></td>
+                <td><a href="prenotazioni.php?sala=${s.codice}">${s.nPrenotazioni}</a></td>
+                <td>
+                    <button class="btn-modifica" onclick="editSala('${escapeHtml(s.codice)}');"><i class="fa fa-edit"></i> Modifica</button>
+                    <button class="btn-elimina" onclick="deleteSala('${escapeHtml(s.codice)}','${escapeHtml(s.nome)}');"><i class="fa fa-trash-alt"></i> Elimina</button>
+                </td>
+            </tr>`;
+        });
+    }
+    $('#risultati-tabella-sale').html(html);
+}
+
+// UPDATE: apre modale con dati precaricati
+function editSala(codice) {
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/ajax_crud.php',
+        data: {
+            action: 'get_single',
+            codice: codice
+        },
+        dataType: 'json',
+        success: function(res) {
+            if (res.success) {
+                $('#modalTitle').text('Modifica Sala');
+                $('#form-action').val('update');
+                $('#form-codice').val(res.data.codice).prop('readonly', true);
+                $('#form-nome').val(res.data.nome);
+                $('#form-tema').val(res.data.tema);
+                $('#form-mq').val(res.data.mq);
+                $('#salaModal').show();
+            } else {
+                alert('Errore: ' + res.message);
+            }
+        },
+        error: function() {
+            alert('Errore di comunicazione con il server');
+        }
+    });
+}
+
+// DELETE: 
+function deleteSala(codice, nome) {
+    if (!confirm(`Eliminare la sala "${nome}" (${codice})?`)) {
+        return;
+    }
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/ajax_crud.php',
+        data: {
+            action: 'delete',
+            codice: codice
+        },
+        dataType: 'json',
+        success: function(res) {
+            if (res.success) {
+                alert(res.message);
+                loadSale();
+            } else {
+                alert('Errore: ' + res.message);
+            }
+        },
+        error: function() {
+            alert('Errore di comunicazione con il server');
         }
     });
 }
@@ -203,7 +249,7 @@ function validateSalaForm(data, prefix) {
     return isValid;
 }
 
-// Funzioni utility
+/* ------ Funzioni utility ------ */ 
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
